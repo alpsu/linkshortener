@@ -1,4 +1,4 @@
-SET search_path TO 'public';
+SET search_path TO 'test';
 
 DROP TABLE IF EXISTS link;
 DROP TABLE IF EXISTS user_account;
