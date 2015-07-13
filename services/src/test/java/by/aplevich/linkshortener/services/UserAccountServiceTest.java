@@ -14,6 +14,7 @@ public class UserAccountServiceTest extends AbstractServiceTest {
 
     @Test
     public void crudTest() {
+        LOGGER.info("Starting CrudTest for UserAccount");
         UserAccount userOne = createUser();
 
         final UserAccount createdUserAccount = userAccountService.get(userOne.getId());
@@ -22,12 +23,18 @@ public class UserAccountServiceTest extends AbstractServiceTest {
         Assert.assertEquals(createdUserAccount.getLogin(), userOne.getLogin());
         Assert.assertEquals(createdUserAccount.getPassword(), userOne.getPassword());
 
-        userAccountService.deteteUser(userOne.getId());
-        Assert.assertNull(userAccountService.get(userOne.getId()));
+        createdUserAccount.setName("NewUserName");
+        userAccountService.updateUser(createdUserAccount);
+        final UserAccount createdUserAccountFromDB = userAccountService.get(createdUserAccount.getId());
+        Assert.assertEquals(createdUserAccountFromDB.getName(), createdUserAccount.getName());
+
+        userAccountService.deteteUser(createdUserAccountFromDB.getId());
+        Assert.assertNull(userAccountService.get(createdUserAccountFromDB.getId()));
     }
 
     @Test
     public void uniqueConstraintsTest() {
+        LOGGER.info("Starting UniqueConstraintsTest for UserAccount ");
         final UserAccount user = createUser();
         final String login = randomString("login");
         user.setLogin(login);
@@ -44,19 +51,5 @@ public class UserAccountServiceTest extends AbstractServiceTest {
 
         duplicateUser.setLogin(randomString("login"));
         userAccountService.updateUser(duplicateUser);
-    }
-
-    @Test
-    public void updateUserTest() {
-        final UserAccount user = createUser();
-
-        final UserAccount createdUserAccount = userAccountService.get(user.getId());
-        createdUserAccount.setName("NewUserName");
-        userAccountService.updateUser(createdUserAccount);
-        final UserAccount createdUserAccountFromDB = userAccountService.get(createdUserAccount.getId());
-        Assert.assertEquals(createdUserAccountFromDB.getName(), createdUserAccount.getName());
-
-        userAccountService.deteteUser(createdUserAccountFromDB.getId());
-        Assert.assertNull(userAccountService.get(createdUserAccountFromDB.getId()));
     }
 }

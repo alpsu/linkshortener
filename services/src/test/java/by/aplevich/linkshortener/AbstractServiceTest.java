@@ -98,34 +98,32 @@ public abstract class AbstractServiceTest {
 
     protected UserAccount createUser() {
         UserAccount user = new UserAccount();
+        user.setName(randomString("name"));
         user.setLogin(randomString("login"));
         user.setPassword(randomString("pass"));
-        user.setName(randomString("name"));
         userAccountService.createNewUser(user);
         return user;
     }
 
     protected Teg createTeg() {
         Teg teg = new Teg();
-        teg.setName(randomString("first name"));
+        teg.setName(randomString("name"));
         tegService.saveOrUpdate(teg);
         return teg;
     }
 
     protected Link createLink() {
         Link link = new Link();
-        Horce horce = createHorce();
-        horceService.saveOrUpdate(horce);
-        Jockey jockey = createJockey();
-        jockeyService.saveOrUpdate(jockey);
-        Race race = createRace();
-        raceService.saveOrUpdate(race);
-        runner.setKoefficient(randomDouble());
-        runner.setHorce(horce);
-        runner.setJockey(jockey);
-        runner.setRace(race);
-        runnerService.saveOrUpdate(runner);
-        return runner;
+        UserAccount user = createUser();
+        userAccountService.updateUser(user);
+        link.setUserAccount(user);
+        link.setUrl(randomString("url"));
+        link.setCode(randomString("c"));
+        link.setQuantity(randomInteger());
+        link.setDescription(randomString("decr"));
+
+        linkService.saveOrUpdate(link);
+        return link;
     }
 
     @Before

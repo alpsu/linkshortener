@@ -23,20 +23,20 @@ CREATE TABLE user_account (
 COMMENT ON TABLE user_account IS 'Таблица пользователей';
 
 CREATE TABLE link (
-  id          SERIAL                 NOT NULL,
-  user_id     INTEGER                NOT NULL,
-  url         CHARACTER VARYING(500) NOT NULL,
-  code        CHARACTER VARYING(11)  NOT NULL,
-  quantity    INTEGER DEFAULT 0      NOT NULL,
-  description CHARACTER VARYING(500),
-  tagone_id   INTEGER DEFAULT 1,
-  tagtwo_id   INTEGER DEFAULT 1,
-  tagthree_id INTEGER DEFAULT 1,
-  tagfour_id  INTEGER DEFAULT 1,
-  tagfive_id  INTEGER DEFAULT 1,
+  id              SERIAL                 NOT NULL,
+  user_account_id INTEGER                NOT NULL,
+  url             CHARACTER VARYING(500) NOT NULL,
+  code            CHARACTER VARYING(11)  NOT NULL,
+  quantity        INTEGER DEFAULT 0      NOT NULL,
+  description     CHARACTER VARYING(500),
+  tagone_id       INTEGER DEFAULT 1,
+  tagtwo_id       INTEGER DEFAULT 1,
+  tagthree_id     INTEGER DEFAULT 1,
+  tagfour_id      INTEGER DEFAULT 1,
+  tagfive_id      INTEGER DEFAULT 1,
   CONSTRAINT link_pkey PRIMARY KEY (id),
   CONSTRAINT link_code_key UNIQUE (code),
-  CONSTRAINT link_user_id_fkey FOREIGN KEY (user_id)
+  CONSTRAINT link_user_account_id_fkey FOREIGN KEY (user_account_id)
   REFERENCES user_account (id) MATCH SIMPLE
   ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tagone_id_fkey FOREIGN KEY (tagone_id)

@@ -17,11 +17,6 @@ public class Link extends AbstractEntity {
     @Column
     @NotNull
     @Min(value = 0)
-    private double koefficient;
-
-    @Column
-    @NotNull
-    @Min(value = 0)
     @Max(value = 500)
     private String url;
 
@@ -47,19 +42,19 @@ public class Link extends AbstractEntity {
     private UserAccount userAccount;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tegone;
+    private Teg tagone;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tegtwo;
+    private Teg tagtwo;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tegthree;
+    private Teg tagthree;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tegfour;
+    private Teg tagfour;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tegfive;
+    private Teg tagfive;
 
     @Override
     public Long getId() {
@@ -68,14 +63,6 @@ public class Link extends AbstractEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public double getKoefficient() {
-        return koefficient;
-    }
-
-    public void setKoefficient(double koefficient) {
-        this.koefficient = koefficient;
     }
 
     public String getUrl() {
@@ -118,50 +105,49 @@ public class Link extends AbstractEntity {
         this.userAccount = userAccount;
     }
 
-    public Teg getTegone() {
-        return tegone;
+    public Teg getTagone() {
+        return tagone;
     }
 
-    public void setTegone(Teg tegone) {
-        this.tegone = tegone;
+    public void setTagone(Teg tagone) {
+        this.tagone = tagone;
     }
 
-    public Teg getTegtwo() {
-        return tegtwo;
+    public Teg getTagtwo() {
+        return tagtwo;
     }
 
-    public void setTegtwo(Teg tegtwo) {
-        this.tegtwo = tegtwo;
+    public void setTagtwo(Teg tagtwo) {
+        this.tagtwo = tagtwo;
     }
 
-    public Teg getTegthree() {
-        return tegthree;
+    public Teg getTagthree() {
+        return tagthree;
     }
 
-    public void setTegthree(Teg tegthree) {
-        this.tegthree = tegthree;
+    public void setTagthree(Teg tagthree) {
+        this.tagthree = tagthree;
     }
 
-    public Teg getTegfour() {
-        return tegfour;
+    public Teg getTagfour() {
+        return tagfour;
     }
 
-    public void setTegfour(Teg tegfour) {
-        this.tegfour = tegfour;
+    public void setTagfour(Teg tagfour) {
+        this.tagfour = tagfour;
     }
 
-    public Teg getTegfive() {
-        return tegfive;
+    public Teg getTagfive() {
+        return tagfive;
     }
 
-    public void setTegfive(Teg tegfive) {
-        this.tegfive = tegfive;
+    public void setTagfive(Teg tagfive) {
+        this.tagfive = tagfive;
     }
 
     @Override
     public String toString() {
         return "Link{" +
-                "koefficient=" + koefficient +
                 ", url='" + url + '\'' +
                 ", code='" + code + '\'' +
                 ", quantity=" + quantity +

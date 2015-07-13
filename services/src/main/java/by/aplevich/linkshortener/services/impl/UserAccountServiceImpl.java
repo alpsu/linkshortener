@@ -3,6 +3,7 @@ package by.aplevich.linkshortener.services.impl;
 import by.aplevich.linkshortener.dataaccess.UserAccountDao;
 import by.aplevich.linkshortener.datamodel.UserAccount;
 import by.aplevich.linkshortener.datamodel.UserAccount_;
+import by.aplevich.linkshortener.services.UserAccountService;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,11 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class UserAccountServiceImpl implements by.aplevich.horcerace.services.UserAccountService {
+public class UserAccountServiceImpl implements UserAccountService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountServiceImpl.class);
 
     @Inject
-    private UserDao dao;
+    private UserAccountDao dao;
 
     @Override
     public UserAccount get(Long id) {
@@ -49,14 +50,14 @@ public class UserAccountServiceImpl implements by.aplevich.horcerace.services.Us
         dao.deleteAll();
     }
 
-    @Override
-    public UserAccount getUserByLogin(String userLogin) {
-        final List<UserAccount> allByFieldRestriction = dao.getAllByFieldRestriction(UserAccount_.login, userLogin);
-        return !allByFieldRestriction.isEmpty() ? allByFieldRestriction.get(0) : null;
-    }
-
-    @Override
-    public List<UserRole> getRoles(Long userId) {
-        return dao.getUserRole(userId);
-    }
+//    @Override
+//    public UserAccount getUserByLogin(String userLogin) {
+//        final List<UserAccount> allByFieldRestriction = dao.getAllByFieldRestriction(UserAccount_.login, userLogin);
+//        return !allByFieldRestriction.isEmpty() ? allByFieldRestriction.get(0) : null;
+//    }
+//
+//    @Override
+//    public List<UserRole> getRoles(Long userId) {
+//        return dao.getUserRole(userId);
+//    }
 }
