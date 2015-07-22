@@ -20,4 +20,6 @@ public interface AbstractDao<ID, Entity> {
     Entity update(Entity entity);
 
     List<Entity> getAllByFieldRestriction(final SingularAttribute<? super Entity, ?> attribute, final Object value);
+
+    Long getNextId();
 }

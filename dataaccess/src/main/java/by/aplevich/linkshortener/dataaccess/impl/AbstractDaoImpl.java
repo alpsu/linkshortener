@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
+import java.math.BigInteger;
 import java.util.List;
 
 public abstract class AbstractDaoImpl<ID, Entity> implements AbstractDao<ID, Entity> {
@@ -92,5 +93,14 @@ public abstract class AbstractDaoImpl<ID, Entity> implements AbstractDao<ID, Ent
         criteria.select(root).distinct(true);
         criteria.where(builder.equal(root.get(attribute), value));
         return em.createQuery(criteria).getResultList();
+    }
+
+    @Override
+    public Long getNextId() {
+        Query q1 = em.createNativeQuery("SELECT nextval('link_id_seq')");
+        BigInteger id = (BigInteger)q1.getSingleResult();
+        String query2 = "SELECT setval('link_id_seq', " + id + " , false)";
+        em.createNativeQuery(query2).getSingleResult();
+        return id.longValue();
     }
 }

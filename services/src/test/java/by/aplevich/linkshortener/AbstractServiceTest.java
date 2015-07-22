@@ -120,7 +120,7 @@ public abstract class AbstractServiceTest {
         link.setUrl(randomString("url"));
         link.setCode(randomString("c"));
         link.setQuantity(randomInteger());
-        link.setDescription(randomString("decr"));
+        link.setDescription(randomString("descr"));
 
         linkService.saveOrUpdate(link);
         return link;

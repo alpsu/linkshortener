@@ -14,6 +14,9 @@ import java.util.List;
 public class LinkServiceImpl implements LinkService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LinkServiceImpl.class);
 
+    public static final String ALPHABET = "23456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ-_";
+    public static final int BASE = ALPHABET.length();
+
     @Inject
     private LinkDao dao;
 
@@ -46,10 +49,34 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-        public List<Link> getAllLinksByUser(Long userId) {
+    public List<Link> getAllLinksByUser(Long userId) {
         LOGGER.debug("Get all links by userId: {}", userId);
         return dao.getAllLinksByUser(userId);
     }
+
+    @Override
+    public String encode(int num) {
+        StringBuilder str = new StringBuilder();
+        while (num > 0) {
+            str.insert(0, ALPHABET.charAt(num % BASE));
+            num = num / BASE;
+        }
+        return str.toString();
+    }
+    @Override
+    public  int decode(String str) {
+        int num = 0;
+        for (int i = 0; i < str.length(); i++) {
+            num = num * BASE + ALPHABET.indexOf(str.charAt(i));
+        }
+        return num;
+    }
+
+    @Override
+    public Long getNextId() {
+        return dao.getNextId();
+    }
+
 //
 //    @Override
 //    public void deleteAllInRace(Race race) {
@@ -76,5 +103,26 @@ public class LinkServiceImpl implements LinkService {
 //    @Override
 //    public Runner getWithAllByRunner(Long runnerId) {
 //        return dao.getWithAllByRunner(runnerId);
+//    }
+//
+//    @Override
+//    public String createShortUrl() {
+//        final char[] arr = new char[]{'a','b','c','d','e','f',
+//                'g','h','i','j','k','l',
+//                'm','n','o','p','r','s',
+//                't','u','v','w','x','y',
+//                'z','A','B','C','D','E',
+//                'G','H','I','J','K','L',
+//                'M','N','O','P','R','S',
+//                'T','U','V','W','X','Y',
+//                'Z','F','1','2','3','4',
+//                '5','6','7','8','9','0'};
+//        StringBuffer url = new StringBuffer();
+//        Random random = new Random();
+//        for(int i = 0; i < 7; i++)
+//        {
+//            url.append(arr[random.nextInt(arr.length-1)]);
+//        }
+//        return url.toString();
 //    }
 }

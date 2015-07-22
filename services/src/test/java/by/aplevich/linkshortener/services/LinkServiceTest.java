@@ -9,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.PersistenceException;
+import javax.validation.constraints.AssertTrue;
 import java.util.List;
+import java.util.LongSummaryStatistics;
 
 public class LinkServiceTest extends AbstractServiceTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(LinkServiceTest.class);
@@ -61,8 +63,6 @@ public class LinkServiceTest extends AbstractServiceTest {
         linkService.saveOrUpdate(duplicateLink);
     }
 
-
-
     @Test
     public void getAllLinksByUserTest() {
         LOGGER.debug("Starting getAllLinksTest by user");
@@ -81,5 +81,53 @@ public class LinkServiceTest extends AbstractServiceTest {
         List<Link> links = linkService.getAllLinksByUser(user.getId());
         LOGGER.debug("links: {}", links);
         Assert.assertEquals(links.size(), num);
+    }
+
+    @Test
+    public void getNextIdTest(){
+        LOGGER.debug("Starting getNextIdTest");
+        Long id1 = linkService.getNextId();
+        Long id2 = linkService.getNextId();
+        LOGGER.debug("id1: {}", id1);
+        LOGGER.debug("id2: {}", id2);
+        LOGGER.debug("substraction: {}", id2-id1);
+        Assert.assertEquals(id1, id2);
+        Long id3 = linkService.getNextId();
+        Link link = createLink();
+        Long id4 = linkService.getNextId();
+        LOGGER.debug("id3: {}", id3);
+        LOGGER.debug("id4: {}", id4);
+        LOGGER.debug("substraction: {}", id4-id3);
+        Assert.assertNotEquals(id3, id4);
+    }
+
+    @Test
+    public void encodeDecodeTest() {
+        LOGGER.debug("Starting encodeDecodeTest");
+        Long id = linkService.getNextId();
+        Link link = new Link();
+        String url = randomString("url"); //get url
+        link.setUrl(url);
+        String code = linkService.encode(id.intValue());
+        link.setCode(code);
+        UserAccount user = createUser();
+        userAccountService.updateUser(user);
+        link.setUserAccount(user);
+        link.setQuantity(randomInteger());
+        link.setDescription(randomString("descr"));
+        linkService.saveOrUpdate(link);
+
+        Link linkFromDB = linkService.get(id);
+        Assert.assertNotNull(linkFromDB);
+
+        String codeFromLinkFromDB = linkFromDB.getCode();
+        int num = linkService.decode(codeFromLinkFromDB);
+        Assert.assertEquals(Long.valueOf(num), id);
+        LOGGER.debug("id: {}", id);
+        LOGGER.debug("id form db: {}", num);
+
+        String urlFromDb = linkFromDB.getUrl();
+        Assert.assertEquals(url, urlFromDb);
+        LOGGER.debug("Url from DB: {}", urlFromDb);
     }
 }

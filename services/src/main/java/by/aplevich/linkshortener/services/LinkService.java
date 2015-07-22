@@ -23,6 +23,13 @@ public interface LinkService {
 //
     List<Link> getAllLinksByUser(Long userId);
 
+    Long getNextId();
+
+    String encode(int num);
+
+    int decode(String str);
+
+
 //    List<Runner> getAllRunnerByRace(Long raceId, SingularAttribute<Runner, ?> attr, boolean ascending, int startRecord, int pageSize);
 //
 //    Runner getWithAllByRunner(Long runnerId);
