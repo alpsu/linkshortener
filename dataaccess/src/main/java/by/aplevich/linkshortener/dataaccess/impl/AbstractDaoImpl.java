@@ -94,13 +94,4 @@ public abstract class AbstractDaoImpl<ID, Entity> implements AbstractDao<ID, Ent
         criteria.where(builder.equal(root.get(attribute), value));
         return em.createQuery(criteria).getResultList();
     }
-
-    @Override
-    public Long getNextId() {
-        Query q1 = em.createNativeQuery("SELECT nextval('link_id_seq')");
-        BigInteger id = (BigInteger)q1.getSingleResult();
-        String query2 = "SELECT setval('link_id_seq', " + id + " , false)";
-        em.createNativeQuery(query2).getSingleResult();
-        return id.longValue();
-    }
 }

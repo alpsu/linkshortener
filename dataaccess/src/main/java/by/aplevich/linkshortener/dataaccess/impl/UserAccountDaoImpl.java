@@ -5,8 +5,9 @@ import by.aplevich.linkshortener.datamodel.UserAccount;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserAccountDaoImpl extends AbstractDaoImpl<Long, UserAccount> implements UserAccountDao{
-        protected UserAccountDaoImpl() {
+public class UserAccountDaoImpl extends AbstractDaoImpl<Long, UserAccount> implements UserAccountDao {
+    protected UserAccountDaoImpl() {
         super(UserAccount.class);
     }
+
 }
