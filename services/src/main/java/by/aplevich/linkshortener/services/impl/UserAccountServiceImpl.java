@@ -50,11 +50,11 @@ public class UserAccountServiceImpl implements UserAccountService {
         dao.deleteAll();
     }
 
-//    @Override
-//    public UserAccount getUserByLogin(String userLogin) {
-//        final List<UserAccount> allByFieldRestriction = dao.getAllByFieldRestriction(UserAccount_.login, userLogin);
-//        return !allByFieldRestriction.isEmpty() ? allByFieldRestriction.get(0) : null;
-//    }
+    @Override
+    public UserAccount getUserByLogin(String userLogin) {
+        final List<UserAccount> allByFieldRestriction = dao.getAllByFieldRestriction(UserAccount_.login, userLogin);
+        return !allByFieldRestriction.isEmpty() ? allByFieldRestriction.get(0) : null;
+    }
 //
 //    @Override
 //    public List<UserRole> getRoles(Long userId) {

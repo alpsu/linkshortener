@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="short">Сократить</entry>
+    <entry key="p.home.title">Сокращатель</entry>
+    <entry key="p.home">Домой</entry>
+    <entry key="input.long">Введите URL</entry>
+    <entry key="p.createUser">Новый пользователь</entry>
+    <entry key="p.text">Страница входа</entry>
+    <entry key="p.login">Войти</entry>
+    <entry key="p.logout">Выйти</entry>
+    <entry key="login.login">Логин</entry>
+    <entry key="login.password">Пароль</entry>
+    <entry key="login.cpassword">Повторите Пароль</entry>
+    <entry key="login.name">Имя</entry>
+    <entry key="save">Сохранить</entry>
+    <entry key="error.user.login">Пользователь c таким логином уже существует</entry>
+    <entry key="error.user.auth">Ошибка авторизации</entry>
+    <entry key="login">Войти</entry>
+    <entry key="p.userEdit.caption">Заводим пользователя</entry>
+
+    <entry key="javax.validation.constraints.Min.message">Значение '${label}' должно быть больше или равно ${value}</entry>
+    <entry key="javax.validation.constraints.Max.message">Значение '${label}' должно быть меньше или равно ${value}</entry>
+    <entry key="javax.validation.constraints.Digits.message">Значение '${label}' должно состоять из не более чем ${integer} знаком до запятой и не более ${fraction} знаков после запятой</entry>
+    <entry key="javax.validation.constraints.Future.message">Значение '${label}' должно соответствовать "будущей" дате</entry>
+    <entry key="javax.validation.constraints.Past.message">Значение '${label}' должно соответствовать "прошедшей" дате</entry>
+    <entry key="javax.validation.constraints.Size.message">Значение '${label}' должно содержать от ${min} до ${max} элементов</entry>
+    <entry key="javax.validation.constraints.Size.message.String">Значение '${label}' должно содержать от ${min} до ${max} символов</entry>
+    <entry key="javax.validation.constraints.Pattern.message">Значение '${label}' должно соответствовать паттерну ${regexp}</entry>
+    <entry key="javax.validation.constraints.AssertFalse.message">Значение '${label}' должно быть false</entry>
+    <entry key="javax.validation.constraints.AssertTrue.message">Значение '${label}' должно быть true</entry>
+    <entry key="javax.validation.constraints.Null.message ">Значение '${label}' должно быть пустым</entry>
+    <entry key="javax.validation.constraints.NotNull.message">Значение '${label}' не должно быть пустым</entry>
+    <entry key="javax.validation.constraints.DecimalMax.message">Значение '${label}' должно быть меньше или равно ${value}</entry>
+    <entry key="javax.validation.constraints.DecimalMin.message">Значение '${label}' должно быть больше или равно ${value}</entry>
+    <entry key="org.hibernate.validator.constraints.Email.message">Значение '${label}' не является корректным e-mail</entry>
+</properties>

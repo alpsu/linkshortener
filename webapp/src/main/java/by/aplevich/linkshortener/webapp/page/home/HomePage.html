@@ -1,0 +1,23 @@
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+    <div class="container">
+        <div class="form-signin">
+
+            <div class="eng">
+                <label wicket:for="longinput">
+                    <wicket:message key="input.long"/>:
+                </label>
+                <input wicket:id="longinput" id="url" wicket:message:="title:input.long" type="text" class="input-block-level">
+            </div>
+             <!--TODO: Button add in Java-->
+            <table align="center">
+                <tr>
+                    <td width="100%">
+                        <button class="btn btn-large btn-primary">
+                            <wicket:message key="short"/>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</wicket:extend>

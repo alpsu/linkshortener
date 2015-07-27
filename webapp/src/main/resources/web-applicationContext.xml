@@ -13,5 +13,5 @@
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/ds_linkshortener"/>
 
     <import resource="classpath:spring-context.xml"/>
-    <context:component-scan base-package="by.aplevich.linkshortener.webapp"/>
+    <context:component-scan base-package="by.aplevich.linkshortener.webapp.app"/>
 </beans>

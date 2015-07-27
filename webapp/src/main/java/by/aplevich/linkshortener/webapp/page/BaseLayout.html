@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/html"
+      lang="ru">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title wicket:id="headerTitle">[Page title]</title>
+    <!--<title>Сокращатель</title>-->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="nav-collapse collapse">
+                <div class="eng">
+                    <ul class="nav">
+                        <li class="active">
+                            <a wicket:id="link-home">
+                                <wicket:container wicket:id="linkhome"/>
+                            </a>
+                        </li>
+                        <li><a href="stat.html">Statistic</a></li>
+                    </ul>
+                    <span wicket:id="login-panel"></span>
+                    <span wicket:id="language-panel"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="wrap">
+    <wicket:child/>
+    <div class="feedbackpanel" wicket:id="feedbackpanel"></div>
+</div>
+<div id="footer">
+    <div class="container">
+        <div id="center">
+            <table align="center">
+                <tr>
+                    <td> Copyright 2015 Alexander Aplevich</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

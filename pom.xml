@@ -13,14 +13,13 @@
         <spring.version>4.1.7.RELEASE</spring.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
         <jetty.version>7.6.13.v20130916</jetty.version>
-        <jersey.version>1.8</jersey.version>
+        <wicket.version>6.19.0</wicket.version>
     </properties>
 
     <modules>
         <module>datamodel</module>
         <module>dataaccess</module>
         <module>services</module>
-        <module>rest</module>
         <module>webapp</module>
     </modules>
     <dependencyManagement>
@@ -42,34 +41,50 @@
             </dependency>
             <dependency>
                 <groupId>by.aplevich.linkshortener</groupId>
-                <artifactId>rest</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>by.aplevich.linkshortener</groupId>
                 <artifactId>webapp</artifactId>
                 <version>1.0.0</version>
             </dependency>
-            <!-- Jersey -->
+            <!-- Wicket -->
             <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-client</artifactId>
-                <version>${jersey.version}</version>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-bean-validation</artifactId>
+                <version>${wicket.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-server</artifactId>
-                <version>${jersey.version}</version>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-core</artifactId>
+                <version>${wicket.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-core</artifactId>
-                <version>${jersey.version}</version>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-auth-roles</artifactId>
+                <version>${wicket.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>2.2.2</version>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-spring</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-datetime</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-devutils</artifactId>
+                <version>${wicket.version}</version>
+            </dependency>
+            <!--Wicket-JQuery-ui -->
+            <dependency>
+                <groupId>com.googlecode.wicket-jquery-ui</groupId>
+                <artifactId>wicket-jquery-ui</artifactId>
+                <version>6.18.1</version> <!-- or 1.5.11 -->
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.wicket-jquery-ui</groupId>
+                <artifactId>wicket-jquery-ui-theme-uilightness</artifactId>
+                <version>6.18.0</version>
             </dependency>
             <!-- Jetty -->
             <dependency>

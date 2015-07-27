@@ -21,7 +21,7 @@ public interface UserAccountService {
     @Transactional
     void deleteAll();
 
-    //UserAccount getUserByLogin(String userLogin);
+    UserAccount getUserByLogin(String userLogin);
 
     //List<UserRole> getRoles(Long userId);
 }
