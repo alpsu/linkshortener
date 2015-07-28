@@ -5,6 +5,7 @@
     <entry key="p.home.title">Link Shorter</entry>
     <entry key="p.home">Home</entry>
     <entry key="input.long">Enter URL</entry>
+    <entry key="input.code">Short URL</entry>
     <entry key="p.createUser">New User</entry>
     <entry key="p.login.text">Login page</entry>
     <entry key="p.login">Enter</entry>
@@ -13,11 +14,11 @@
     <entry key="login.password">Password</entry>
     <entry key="login.cpassword">Reenter Password</entry>
     <entry key="login.name">Name</entry>
-    <entry key="save">Save</entry>
+    <entry key="save.save">Save</entry>
     <entry key="error.user.login">Users login exist</entry>
     <entry key="error.user.auth">Authentication error</entry>
     <entry key="login">Login</entry>
-    <entry key="p.userEdit.caption">New User</entry>
+    <entry key="userEdit.caption">New User</entry>
 
 
 </properties>

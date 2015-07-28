@@ -78,6 +78,6 @@ public class UserEditPage extends BaseLayout {
 
     @Override
     protected IModel<String> getPageTitle() {
-        return new ResourceModel("p.userEdit.caption");
+        return new ResourceModel("userEdit.caption");
     }
 }

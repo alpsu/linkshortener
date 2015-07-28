@@ -5,6 +5,7 @@
     <entry key="p.home.title">Сокращатель</entry>
     <entry key="p.home">Домой</entry>
     <entry key="input.long">Введите URL</entry>
+    <entry key="input.code">Короткая ссылка</entry>
     <entry key="p.createUser">Новый пользователь</entry>
     <entry key="p.text">Страница входа</entry>
     <entry key="p.login">Войти</entry>
@@ -13,11 +14,11 @@
     <entry key="login.password">Пароль</entry>
     <entry key="login.cpassword">Повторите Пароль</entry>
     <entry key="login.name">Имя</entry>
-    <entry key="save">Сохранить</entry>
+    <entry key="save.save">Сохранить</entry>
     <entry key="error.user.login">Пользователь c таким логином уже существует</entry>
     <entry key="error.user.auth">Ошибка авторизации</entry>
     <entry key="login">Войти</entry>
-    <entry key="p.userEdit.caption">Заводим пользователя</entry>
+    <entry key="userEdit.caption">Заводим пользователя</entry>
 
     <entry key="javax.validation.constraints.Min.message">Значение '${label}' должно быть больше или равно ${value}</entry>
     <entry key="javax.validation.constraints.Max.message">Значение '${label}' должно быть меньше или равно ${value}</entry>
