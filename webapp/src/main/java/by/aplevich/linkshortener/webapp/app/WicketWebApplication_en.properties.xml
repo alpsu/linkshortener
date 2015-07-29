@@ -6,6 +6,8 @@
     <entry key="p.home">Home</entry>
     <entry key="input.long">Enter URL</entry>
     <entry key="input.code">Short URL</entry>
+    <entry key="input.description">Description</entry>
+    <entry key="input.tag">Tag</entry>
     <entry key="p.createUser">New User</entry>
     <entry key="p.login.text">Login page</entry>
     <entry key="p.login">Enter</entry>
@@ -19,6 +21,4 @@
     <entry key="error.user.auth">Authentication error</entry>
     <entry key="login">Login</entry>
     <entry key="userEdit.caption">New User</entry>
-
-
 </properties>

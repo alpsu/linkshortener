@@ -151,8 +151,6 @@ public class Link extends AbstractEntity {
                 ", url='" + url + '\'' +
                 ", code='" + code + '\'' +
                 ", quantity=" + quantity +
-                ", description='" + description + '\'' +
-                ", userAccount=" + userAccount +
-                '}';
+                ", description='" + description + '\'' + '}';
     }
 }
