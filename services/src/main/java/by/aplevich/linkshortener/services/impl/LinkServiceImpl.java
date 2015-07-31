@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.persistence.metamodel.SingularAttribute;
 import java.util.List;
 
 @Service
@@ -77,52 +78,14 @@ public class LinkServiceImpl implements LinkService {
         return dao.getNextId();
     }
 
-//
-//    @Override
-//    public void deleteAllInRace(Race race) {
-//        LOGGER.debug("Deleting all runner in race: {}", race);
-//        List<Runner> runners = getAllRunnerByRace(race);
-//        List<Long> ids = new ArrayList<>();
-//        for (Runner runner : runners) {
-//            ids.add(runner.getId());
-//        }
-//        dao.delete(ids);
-//    }
+    @Override
+    public List<Link> getAllLinksByUser(Long userId, SingularAttribute<Link, ?> attr, boolean ascending, int startRecord, int pageSize) {
+        LOGGER.debug("Get all links by user: {}", userId);
+        return  dao.getAllLinksByUser(userId, attr, ascending, startRecord, pageSize);
+    }
 
-//    @Override
-//    public List<Runner> getAllRunnerByRace(Long raceId, SingularAttribute<Runner, ?> attr, boolean ascending, int startRecord, int pageSize) {
-//        LOGGER.debug("Get all runner in race: {}", raceId);
-//        return  dao.getAllRunnersByRaceWith(raceId, attr, ascending, startRecord, pageSize);
-//    }
-//
-//    @Override
-//    public Long getCount(Long raceId) {
-//        return dao.getCount(raceId);
-//    }
-//
-//    @Override
-//    public Runner getWithAllByRunner(Long runnerId) {
-//        return dao.getWithAllByRunner(runnerId);
-//    }
-//
-//    @Override
-//    public String createShortUrl() {
-//        final char[] arr = new char[]{'a','b','c','d','e','f',
-//                'g','h','i','j','k','l',
-//                'm','n','o','p','r','s',
-//                't','u','v','w','x','y',
-//                'z','A','B','C','D','E',
-//                'G','H','I','J','K','L',
-//                'M','N','O','P','R','S',
-//                'T','U','V','W','X','Y',
-//                'Z','F','1','2','3','4',
-//                '5','6','7','8','9','0'};
-//        StringBuffer url = new StringBuffer();
-//        Random random = new Random();
-//        for(int i = 0; i < 7; i++)
-//        {
-//            url.append(arr[random.nextInt(arr.length-1)]);
-//        }
-//        return url.toString();
-//    }
+    @Override
+    public Long getCount(Long raceId) {
+        return dao.getCount(raceId);
+    }
 }

@@ -1,0 +1,33 @@
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+    <div class="container" align="center">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <wicket:message key="fullUrl"/>
+                </th>
+                <th>
+                    <wicket:message key="input.code"/>
+                </th>
+                <th>
+                    <wicket:message key="quantity"/>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr wicket:id="list">
+                <td>
+                    <wicket:container wicket:id="fullurl"/>
+                </td>
+                <td>
+                    <wicket:container wicket:id="shorturl"/>
+                </td>
+                <td>
+                    <wicket:container wicket:id="quantity"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div wicket:id="paging"></div>
+    </div>
+</wicket:extend>

@@ -7,8 +7,8 @@ import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.services.TegService;
 import by.aplevich.linkshortener.webapp.app.BasicAuthenticationSession;
 import by.aplevich.linkshortener.webapp.page.BaseLayout;
-import by.aplevich.linkshortener.webapp.page.shorturl.ShortUrlPage;
 import by.aplevich.linkshortener.webapp.page.login.LoginPage;
+import by.aplevich.linkshortener.webapp.page.shorturl.ShortUrlPage;
 import by.aplevich.linkshortener.webapp.page.statshort.StatShort;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
@@ -16,8 +16,8 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -25,6 +25,9 @@ import java.util.List;
 public class HomePage extends BaseLayout {
     private UserAccount user;
 
+
+    private String tmp;
+    private Long id;
     private String url;
     private String description;
     private String tag1;
@@ -40,32 +43,65 @@ public class HomePage extends BaseLayout {
 
     private boolean isUrlExist;
     private boolean isShortUrl;
+    private boolean isEditing;
     private Teg tegone;
     private Teg tegtwo;
     private Teg tegthree;
     private Teg tegfour;
     private Teg tegfive;
+    private final TextArea<String> descr;
+    private final TextField<String> tagOne;
+    private final TextField<String> tagTwo;
+    private final TextField<String> tagThree;
+    private final TextField<String> tagFour;
+    private final TextField<String> tagFive;
 
-    public HomePage() {
+    public HomePage(final PageParameters parameters) {
         super();
-
+        if (parameters.getNamedKeys().contains("id")) {
+            id = parameters.get("id").toLong();
+        }
         final Form urlform = new Form("urlform", new CompoundPropertyModel(this));
 
-        final TextField<String> longInput = new TextField<>("url");
+        TextField<String> longInput = new TextField<>("url");
+        if (parameters.getNamedKeys().contains("url")) {
+            url = parameters.get("url").toString();
+            longInput.setEnabled(false);
+            isEditing = true;
+        }
         urlform.add(longInput);
 
-        final TextArea<String> description = new TextArea<String>("description");
-        urlform.add(description);
 
-        final TextField<String> tagOne = new TextField<>("tag1");
+        descr = new TextArea<String>("description");
+        if (parameters.getNamedKeys().contains("desk")) {
+            description = parameters.get("desk").toString();
+        }
+        urlform.add(descr);
+
+        tagOne = new TextField<String>("tag1");
+        if (parameters.getNamedKeys().contains("tag1")) {
+            tag1 = parameters.get("tag1").toString();
+        }
         urlform.add(tagOne);
-        final TextField<String> tagTwo = new TextField<>("tag2");
+        tagTwo = new TextField<String>("tag2");
+        if (parameters.getNamedKeys().contains("tag2")) {
+            tag2 = parameters.get("tag2").toString();
+        }
         urlform.add(tagTwo);
-        final TextField<String> tagThree = new TextField<>("tag3");
+        tagThree = new TextField<String>("tag3");
+        if (parameters.getNamedKeys().contains("tag3")) {
+            tag3 = parameters.get("tag3").toString();
+        }
         urlform.add(tagThree);
-        final TextField<String> tagFour = new TextField<>("tag4");
+        tagFour = new TextField<String>("tag4");
+        if (parameters.getNamedKeys().contains("tag4")) {
+            tag4 = parameters.get("tag4").toString();
+        }
         urlform.add(tagFour);
-        final TextField<String> tagFive = new TextField<>("tag5");
+        tagFive = new TextField<String>("tag5");
+        if (parameters.getNamedKeys().contains("tag5")) {
+            tag5 = parameters.get("tag5").toString();
+        }
         urlform.add(tagFive);
 
         urlform.add(new SubmitLink("longinputbtn") {
@@ -73,56 +109,91 @@ public class HomePage extends BaseLayout {
             public void onSubmit() {
                 super.onSubmit();
 
-                user = BasicAuthenticationSession.get().getUser();
+                if (!isEditing) {
+                    user = BasicAuthenticationSession.get().getUser();
 
-                String value = longInput.getValue();
-                if (!value.contains("http://")) {
-                    value = "http://" + value;
-                }
-                if (user != null) {
-                    checkUrlInBase(value);
-                }
-
-                if (value.contains("http://localhost:8081/")) {
-                    value.replace("http://localhost:8081/", "");
-                }
-                if (value.contains("http://127.0.0.1:8081/")) {
-                    value.replace("http://127.0.0.1:8081/", "");
-                }
-
-                int shortUrlid = linkService.decode(value);
-
-                Link link = linkService.get(Long.valueOf(shortUrlid));
-                if (link != null) {
-                    isShortUrl = true;
-                    setResponsePage(new StatShort(link, user));
-                }
-
-                if (!isShortUrl) {
-                    if ((user == null) && (value != null)) {
-                        setResponsePage(new LoginPage());
-                    } else if (!isUrlExist) {
-                        Long id = linkService.getNextId();
-                        Link linkNew = new Link();
-                        linkNew.setUrl(value);
-                        String code = linkService.encode(id.intValue());
-                        linkNew.setCode(code);
-                        linkNew.setUserAccount(user);
-                        linkNew.setQuantity(0);
-                        linkNew.setDescription(description.getValue());
-                        createTags(tagOne.getValue(), tagTwo.getValue(), tagThree.getValue(), tagFour.getValue(), tagFive.getValue());
-                        linkNew.setTagone(tegone);
-                        linkNew.setTagtwo(tegtwo);
-                        linkNew.setTagthree(tegthree);
-                        linkNew.setTagfour(tegfour);
-                        linkNew.setTagfive(tegfive);
-                        linkService.saveOrUpdate(linkNew);
-                        setResponsePage(new ShortUrlPage("http//127.0.0.1/" + code));
+                    String value = longInput.getValue();
+                    if (!value.contains("http://")) {
+                        value = "http://" + value;
                     }
+                    if (user != null) {
+                        checkUrlInBase(value);
+                    }
+
+                    if (value.contains("http://localhost:8081/")) {
+                        tmp = value.replace("http://localhost:8081/", "");
+                    }
+                    if (value.contains("http://127.0.0.1:8081/")) {
+                        tmp = value.replace("http://127.0.0.1:8081/", "");
+                    }
+
+                    int shortUrlid;
+                    if (tmp != null) {
+                        shortUrlid = linkService.decode(tmp);
+                        isShortUrl = true;
+                    } else {
+                        shortUrlid = linkService.decode(value);
+                    }
+
+                    Link link = null;
+                    try {
+                        link = linkService.get(Long.valueOf(shortUrlid));
+                    } catch (Exception e) {
+                        setResponsePage(HomePage.class, new PageParameters());
+                    }
+
+                    if (link != null) {
+                        UserAccount uFromLink = link.getUserAccount();
+                        if ((user != null)  && (user.equals(uFromLink))) {
+                            PageParameters pageParameters = new PageParameters();
+                            pageParameters.add("url", link.getUrl());
+                            pageParameters.add("id", link.getId());
+                            pageParameters.add("desk", link.getDescription());
+                            pageParameters.add("tag1", link.getTagone().getName());
+                            pageParameters.add("tag2", link.getTagtwo().getName());
+                            pageParameters.add("tag3", link.getTagthree().getName());
+                            pageParameters.add("tag4", link.getTagfour().getName());
+                            pageParameters.add("tag5", link.getTagfive().getName());
+                            setResponsePage(HomePage.class, pageParameters);
+                        } else {
+                            setResponsePage(new StatShort(link));
+                        }
+                    }
+
+                    if (!isShortUrl) {
+                        if ((user == null) && (value != null)) {
+                            setResponsePage(new LoginPage());
+                        } else if (!isUrlExist) {
+                            Long id = linkService.getNextId();
+                            Link linkNew = new Link();
+                            linkNew.setUrl(value);
+                            String code = linkService.encode(id.intValue());
+                            linkNew.setCode(code);
+                            linkNew.setUserAccount(user);
+                            linkNew.setQuantity(0);
+                            createDescr(linkNew);
+                            setResponsePage(new ShortUrlPage("http://127.0.0.1:8081/" + code));
+                        }
+                    }
+                } else {
+                    Link linkFromBase = linkService.get(id);
+                    createDescr(linkFromBase);
+                    setResponsePage(HomePage.class, new PageParameters());
                 }
             }
         });
         add(urlform);
+    }
+
+    private void createDescr(Link linkTmp) {
+        linkTmp.setDescription(descr.getValue());
+        createTags(tagOne.getValue(), tagTwo.getValue(), tagThree.getValue(), tagFour.getValue(), tagFive.getValue());
+        linkTmp.setTagone(tegone);
+        linkTmp.setTagtwo(tegtwo);
+        linkTmp.setTagthree(tegthree);
+        linkTmp.setTagfour(tegfour);
+        linkTmp.setTagfive(tegfive);
+        linkService.saveOrUpdate(linkTmp);
     }
 
     private void createTags(String tagOneName, String tagTwoName, String tagThreeName, String tagFourName, String tagFiveName) {
@@ -179,7 +250,7 @@ public class HomePage extends BaseLayout {
             String url = one.getUrl();
             if (url.equals(value)) {
                 isUrlExist = true;
-                setResponsePage(new ShortUrlPage("http//127.0.0.1:8081/" + one.getCode()));
+                setResponsePage(new ShortUrlPage("http://127.0.0.1:8081/" + one.getCode()));
             }
         }
     }

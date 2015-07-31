@@ -1,8 +1,8 @@
 package by.aplevich.linkshortener.services;
 
 import by.aplevich.linkshortener.datamodel.Link;
-import by.aplevich.linkshortener.datamodel.UserAccount;
 
+import javax.persistence.metamodel.SingularAttribute;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -18,9 +18,6 @@ public interface LinkService {
     @Transactional
     void deleteAll();
 
-//    @Transactional
-//    void deleteAllInRace(Race race);
-//
     List<Link> getAllLinksByUser(Long userId);
 
     Long getNextId();
@@ -30,9 +27,7 @@ public interface LinkService {
     int decode(String str);
 
 
-//    List<Runner> getAllRunnerByRace(Long raceId, SingularAttribute<Runner, ?> attr, boolean ascending, int startRecord, int pageSize);
-//
-//    Runner getWithAllByRunner(Long runnerId);
-//
-//    Long getCount(Long raceId);
+    List<Link> getAllLinksByUser(Long userId, SingularAttribute<Link, ?> attr, boolean ascending, int startRecord, int pageSize);
+
+    Long getCount(Long raceId);
 }

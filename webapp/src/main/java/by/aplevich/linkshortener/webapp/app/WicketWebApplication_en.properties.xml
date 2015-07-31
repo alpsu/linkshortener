@@ -3,7 +3,10 @@
 <properties>
     <entry key="short">Reduce</entry>
     <entry key="p.home.title">Link Shorter</entry>
+    <entry key="fullUrl">Full Url</entry>
+    <entry key="quantity">Link Jumps</entry>
     <entry key="p.home">Home</entry>
+    <entry key="p.stat">Statistic</entry>
     <entry key="input.long">Enter URL</entry>
     <entry key="input.code">Short URL</entry>
     <entry key="input.description">Description</entry>

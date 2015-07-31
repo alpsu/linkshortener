@@ -6,11 +6,9 @@ import by.aplevich.linkshortener.webapp.page.BaseLayout;
 
 public class StatShort extends BaseLayout {
     private Link link;
-    private UserAccount user;
 
-    public StatShort(Link link, UserAccount user) {
+    public StatShort(Link link) {
         this.link = link;
-        this.user = user;
     }
 }
 

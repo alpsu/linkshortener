@@ -65,6 +65,25 @@ public class UserAccount extends AbstractEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserAccount)) return false;
+        if (!super.equals(o)) return false;
+
+        UserAccount that = (UserAccount) o;
+
+        return login.equals(that.login);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + login.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "UserAccount{" +
                 "name='" + name + '\'' +

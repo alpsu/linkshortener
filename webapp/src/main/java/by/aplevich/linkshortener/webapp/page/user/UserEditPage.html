@@ -1,40 +1,42 @@
 <wicket:extend xmlns:wicket="http://wicket.apache.org">
-    <form wicket:id="form">
-        <table>
-            <caption>
-                <wicket:message key="userEdit.caption"/>
-            </caption>
-            <tr>
-                <td><label wicket:for="name">
-                    <wicket:message key="login.name"/>
-                    :</label></td>
-                <td><input wicket:id="name" wicket:message="title:login.name" type="text"></td>
-            </tr>
-            <tr>
-                <td><label wicket:for="login">
-                    <wicket:message key="login.login"/>
-                    :</label></td>
-                <td><input wicket:id="login" wicket:message="title:login.login" type="text"></td>
-            </tr>
-            <tr>
-                <td><label wicket:for="password">
-                    <wicket:message key="login.password"/>
-                    :</label></td>
-                <td><input wicket:id="password" wicket:message="title:login.password" type="password">
-                </td>
-            </tr>
-            <tr>
-                <td><label wicket:for="cpassword">
-                    <wicket:message key="login.cpassword"/>
-                    :</label></td>
-                <td><input wicket:id="cpassword" wicket:message="title:login.cpassword" type="password">
-                </td>
-            </tr>
-        </table>
-        <div>
-            <button type="submit" wicket:id="sumbit-link">
-                <wicket:message key="save.save"/>
-            </button>
-        </div>
-    </form>
+    <div class="container" align="center">
+        <form wicket:id="form">
+            <table>
+                <caption>
+                    <wicket:message key="userEdit.caption"/>
+                </caption>
+                <tr>
+                    <td><label wicket:for="name">
+                        <wicket:message key="login.name"/>
+                        :</label></td>
+                    <td><input wicket:id="name" wicket:message="title:login.name" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label wicket:for="login">
+                        <wicket:message key="login.login"/>
+                        :</label></td>
+                    <td><input wicket:id="login" wicket:message="title:login.login" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label wicket:for="password">
+                        <wicket:message key="login.password"/>
+                        :</label></td>
+                    <td><input wicket:id="password" wicket:message="title:login.password" type="password">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label wicket:for="cpassword">
+                        <wicket:message key="login.cpassword"/>
+                        :</label></td>
+                    <td><input wicket:id="cpassword" wicket:message="title:login.cpassword" type="password">
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <button type="submit" wicket:id="sumbit-link">
+                    <wicket:message key="save.save"/>
+                </button>
+            </div>
+        </form>
+    </div>
 </wicket:extend>
