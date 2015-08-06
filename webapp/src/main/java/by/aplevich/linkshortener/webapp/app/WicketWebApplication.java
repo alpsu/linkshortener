@@ -31,6 +31,7 @@ public class WicketWebApplication extends AuthenticatedWebApplication {
     @Override
     public void init() {
         super.init();
+
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, getApplicationContext()));
 
         final BeanValidationConfiguration beanValidationConfiguration = new BeanValidationConfiguration();

@@ -29,5 +29,7 @@ public interface LinkService {
 
     List<Link> getAllLinksByUser(Long userId, SingularAttribute<Link, ?> attr, boolean ascending, int startRecord, int pageSize);
 
-    Long getCount(Long raceId);
+    List<Link> getAllLinksByTag(Long tagId);
+
+    Long getCount(Long userId);
 }

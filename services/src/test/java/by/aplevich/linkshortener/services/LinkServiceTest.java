@@ -2,6 +2,7 @@ package by.aplevich.linkshortener.services;
 
 import by.aplevich.linkshortener.AbstractServiceTest;
 import by.aplevich.linkshortener.datamodel.Link;
+import by.aplevich.linkshortener.datamodel.Teg;
 import by.aplevich.linkshortener.datamodel.UserAccount;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,6 +29,9 @@ public class LinkServiceTest extends AbstractServiceTest {
         Assert.assertEquals(linkFromDb.getCode(), link.getCode());
         Assert.assertEquals(linkFromDb.getQuantity(), link.getQuantity());
         Assert.assertEquals(linkFromDb.getDescription(), link.getDescription());
+        Assert.assertEquals(linkFromDb.getDescription(), link.getDescription());
+        Assert.assertEquals(linkFromDb.getDescription(), link.getDescription());
+        Assert.assertEquals(linkFromDb.getTagone(), link.getTagone());
 
         linkFromDb.setUrl("newURL");
         linkFromDb.setCode("newCode");
@@ -115,6 +119,16 @@ public class LinkServiceTest extends AbstractServiceTest {
         link.setUserAccount(user);
         link.setQuantity(randomInteger());
         link.setDescription(randomString("descr"));
+        Teg teg1 = createTeg();
+        Teg teg2 = createTeg();
+        Teg teg3 = createTeg();
+        Teg teg4 = createTeg();
+        Teg teg5 = createTeg();
+        link.setTagone(teg1);
+        link.setTagtwo(teg2);
+        link.setTagthree(teg3);
+        link.setTagfour(teg4);
+        link.setTagfive(teg5);
         linkService.saveOrUpdate(link);
 
         Link linkFromDB = linkService.get(id);

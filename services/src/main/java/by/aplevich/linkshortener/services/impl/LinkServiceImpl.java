@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.persistence.metamodel.SingularAttribute;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -85,7 +86,19 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Long getCount(Long raceId) {
-        return dao.getCount(raceId);
+    public List<Link> getAllLinksByTag(Long tagId) {
+        LOGGER.debug("Get all links by tagId: {}", tagId);
+        List<Link> result = new ArrayList<Link>();
+        result.addAll(dao.getAllLinksByTag1(tagId));
+        result.addAll(dao.getAllLinksByTag2(tagId));
+        result.addAll(dao.getAllLinksByTag3(tagId));
+        result.addAll(dao.getAllLinksByTag4(tagId));
+        result.addAll(dao.getAllLinksByTag5(tagId));
+        return result;
+    }
+
+    @Override
+    public Long getCount(Long userId) {
+        return dao.getCount(userId);
     }
 }

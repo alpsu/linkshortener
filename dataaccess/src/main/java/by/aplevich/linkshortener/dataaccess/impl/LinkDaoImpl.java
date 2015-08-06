@@ -22,7 +22,6 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
         super(Link.class);
     }
 
-
     @Override
     public List<Link> getAllLinksByUser(Long userId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
@@ -49,7 +48,8 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
 
     @Override
     public Link getById(Long id) {
-        CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+        EntityManager em = getEm();
+        CriteriaBuilder cBuilder = em.getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
         Root<Link> root = criteria.from(Link.class);
@@ -63,8 +63,9 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
         root.fetch(Link_.tagfour);
         root.fetch(Link_.tagfive);
 
-        TypedQuery<Link> query = getEm().createQuery(criteria);
-        return query.getSingleResult();
+        TypedQuery<Link> query = em.createQuery(criteria);
+        List<Link> results = query.getResultList();
+        return results.get(0);
     }
 
     @Override
@@ -81,6 +82,77 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
         TypedQuery<Link> query = getEm().createQuery(criteria);
         query.setFirstResult(first);
         query.setMaxResults(pageSize);
+        List<Link> results = query.getResultList();
+        return results;
+    }
+
+    @Override
+    public List<Link> getAllLinksByTag1(Long tagId) {
+        CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+
+        CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
+        Root<Link> root = criteria.from(Link.class);
+
+        criteria.select(root);
+        criteria.where(cBuilder.equal(root.get(Link_.tagone), tagId));
+
+        TypedQuery<Link> query = getEm().createQuery(criteria);
+        List<Link> results = query.getResultList();
+        return results;
+    }
+    @Override
+    public List<Link> getAllLinksByTag2(Long tagId) {
+        CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+
+        CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
+        Root<Link> root = criteria.from(Link.class);
+
+        criteria.select(root);
+        criteria.where(cBuilder.equal(root.get(Link_.tagtwo), tagId));
+
+        TypedQuery<Link> query = getEm().createQuery(criteria);
+        List<Link> results = query.getResultList();
+        return results;
+    }
+    @Override
+    public List<Link> getAllLinksByTag3(Long tagId) {
+        CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+
+        CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
+        Root<Link> root = criteria.from(Link.class);
+
+        criteria.select(root);
+        criteria.where(cBuilder.equal(root.get(Link_.tagthree), tagId));
+
+        TypedQuery<Link> query = getEm().createQuery(criteria);
+        List<Link> results = query.getResultList();
+        return results;
+    }
+    @Override
+    public List<Link> getAllLinksByTag4(Long tagId) {
+        CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+
+        CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
+        Root<Link> root = criteria.from(Link.class);
+
+        criteria.select(root);
+        criteria.where(cBuilder.equal(root.get(Link_.tagfour), tagId));
+
+        TypedQuery<Link> query = getEm().createQuery(criteria);
+        List<Link> results = query.getResultList();
+        return results;
+    }
+    @Override
+    public List<Link> getAllLinksByTag5(Long tagId) {
+        CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+
+        CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
+        Root<Link> root = criteria.from(Link.class);
+
+        criteria.select(root);
+        criteria.where(cBuilder.equal(root.get(Link_.tagfive), tagId));
+
+        TypedQuery<Link> query = getEm().createQuery(criteria);
         List<Link> results = query.getResultList();
         return results;
     }

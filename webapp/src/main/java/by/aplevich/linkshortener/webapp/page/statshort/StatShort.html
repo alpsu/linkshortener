@@ -1,7 +1,25 @@
 <wicket:extend xmlns:wicket="http://wicket.apache.org">
     <div class="container" align="center">
         <h2>
-            <label class="label label-default">Work</label>
+            <label class="label label-default" wicket:id="statshort"></label>
         </h2>
+        <textarea wicket:id="description"></textarea>
+        <div>
+            <span><a wicket:id="tagonelink">
+                <wicket:container wicket:id="tagonename"/>
+            </a></span>
+            <span><a wicket:id="tagtwolink">
+                <wicket:container wicket:id="tagtwoname"/>
+            </a></span>
+            <span><a wicket:id="tagthreelink">
+                <wicket:container wicket:id="tagthreename"/>
+            </a></span>
+            <span><a wicket:id="tagfourlink">
+                <wicket:container wicket:id="tagfourname"/>
+            </a></span>
+            <span><a wicket:id="tagfivelink">
+                <wicket:container wicket:id="tagfivename"/>
+            </a></span>
+        </div>
     </div>
 </wicket:extend>

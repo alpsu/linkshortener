@@ -156,7 +156,7 @@ public class HomePage extends BaseLayout {
                             pageParameters.add("tag5", link.getTagfive().getName());
                             setResponsePage(HomePage.class, pageParameters);
                         } else {
-                            setResponsePage(new StatShort(link));
+                            setResponsePage(new StatShort(link.getId()));
                         }
                     }
 

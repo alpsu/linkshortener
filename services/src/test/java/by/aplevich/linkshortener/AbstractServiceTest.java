@@ -121,7 +121,16 @@ public abstract class AbstractServiceTest {
         link.setCode(randomString("c"));
         link.setQuantity(randomInteger());
         link.setDescription(randomString("descr"));
-
+        Teg teg1 = createTeg();
+        Teg teg2 = createTeg();
+        Teg teg3 = createTeg();
+        Teg teg4 = createTeg();
+        Teg teg5 = createTeg();
+        link.setTagone(teg1);
+        link.setTagtwo(teg2);
+        link.setTagthree(teg3);
+        link.setTagfour(teg4);
+        link.setTagfive(teg5);
         linkService.saveOrUpdate(link);
         return link;
     }
