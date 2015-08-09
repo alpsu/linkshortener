@@ -2,7 +2,6 @@ package by.aplevich.linkshortener.services;
 
 import by.aplevich.linkshortener.datamodel.Teg;
 
-import javax.persistence.metamodel.SingularAttribute;
 import javax.transaction.Transactional;
 import java.util.List;
 

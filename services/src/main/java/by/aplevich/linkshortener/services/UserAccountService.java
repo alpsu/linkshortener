@@ -1,10 +1,8 @@
 package by.aplevich.linkshortener.services;
 
 import by.aplevich.linkshortener.datamodel.UserAccount;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 public interface UserAccountService {
     UserAccount get(Long id);
@@ -22,6 +20,4 @@ public interface UserAccountService {
     void deleteAll();
 
     UserAccount getUserByLogin(String userLogin);
-
-    //List<UserRole> getRoles(Long userId);
 }

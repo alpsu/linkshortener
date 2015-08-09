@@ -5,12 +5,10 @@ import by.aplevich.linkshortener.datamodel.Teg;
 import by.aplevich.linkshortener.datamodel.Teg_;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -20,7 +18,7 @@ public class TegDaoImpl extends AbstractDaoImpl<Long, Teg> implements TegDao{
     }
 
     @Override
-    public Teg getByName(String name) {
+    public Teg getByName(final String name) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Teg> criteria = cBuilder.createQuery(Teg.class);

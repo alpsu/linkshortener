@@ -15,9 +15,9 @@ public class StatShort extends BaseLayout {
 
     private by.aplevich.linkshortener.datamodel.Link link;
     @Inject
-    LinkService linkService;
+    private LinkService linkService;
 
-    public StatShort(Long linkId) {
+    public StatShort(final Long linkId) {
         link = linkService.get(linkId);
         description = link.getDescription();
         add(new Label("statshort", link.getUrl()));

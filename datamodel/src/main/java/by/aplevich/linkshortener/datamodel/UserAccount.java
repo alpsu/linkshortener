@@ -36,7 +36,7 @@ public class UserAccount extends AbstractEntity {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -44,7 +44,7 @@ public class UserAccount extends AbstractEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -52,7 +52,7 @@ public class UserAccount extends AbstractEntity {
         return login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(final String login) {
         this.login = login;
     }
 
@@ -60,20 +60,25 @@ public class UserAccount extends AbstractEntity {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserAccount)) return false;
-        if (!super.equals(o)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserAccount)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         UserAccount that = (UserAccount) o;
 
         return login.equals(that.login);
-
     }
 
     @Override
@@ -85,11 +90,10 @@ public class UserAccount extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "UserAccount{" +
-                "name='" + name + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", cpassword='" + cpassword + '\'' +
-                '}';
+        return "UserAccount{"
+                + "name='" + name + '\''
+                + ", login='" + login + '\''
+                + ", password='" + password + '\''
+                + ", cpassword='" + cpassword + '\'' + '}';
     }
 }

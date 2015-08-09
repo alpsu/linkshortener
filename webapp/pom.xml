@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>by.aplevich.linkshortener</groupId>
-            <artifactId>services</artifactId>
+            <artifactId>servlet</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>

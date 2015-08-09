@@ -14,23 +14,22 @@ import java.util.List;
 
 public class LinkByTagPage extends BaseLayout {
 
-    Teg tagTmp;
-    @Inject
-    LinkService linkService;
-    @Inject
-    TegService tegService;
+    private Teg tagTmp;
 
-    public LinkByTagPage(String tagName) {
+    @Inject
+    private LinkService linkService;
+    @Inject
+    private TegService tegService;
+
+    public LinkByTagPage(final String tagName) {
         tagTmp = tegService.getByName(tagName);
         final List<Link> allLinksByTag = linkService.getAllLinksByTag(tagTmp.getId());
         add(new ListView<Link>("listlinks", allLinksByTag) {
             @Override
-            protected void populateItem(ListItem<Link> item) {
+            protected void populateItem(final ListItem<Link> item) {
                 Link link = item.getModelObject();
                 item.add((new Label("fullUrl", link.getUrl())));
             }
         });
     }
 }
-
-

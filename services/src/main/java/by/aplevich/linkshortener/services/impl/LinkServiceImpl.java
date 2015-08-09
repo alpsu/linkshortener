@@ -14,21 +14,19 @@ import java.util.List;
 
 @Service
 public class LinkServiceImpl implements LinkService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LinkServiceImpl.class);
-
     public static final String ALPHABET = "23456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ-_";
     public static final int BASE = ALPHABET.length();
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(LinkServiceImpl.class);
     @Inject
     private LinkDao dao;
 
     @Override
-    public Link get(Long id) {
+    public Link get(final Long id) {
         return dao.getById(id);
     }
 
     @Override
-    public void saveOrUpdate(Link link) {
+    public void saveOrUpdate(final Link link) {
         if (link.getId() == null) {
             LOGGER.debug("Save new: {}", link);
             dao.insert(link);
@@ -39,7 +37,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public void delete(Link link) {
+    public void delete(final Link link) {
         LOGGER.debug("Delete link: {}", link);
         dao.delete(link.getId());
     }
@@ -51,7 +49,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public List<Link> getAllLinksByUser(Long userId) {
+    public List<Link> getAllLinksByUser(final Long userId) {
         LOGGER.debug("Get all links by userId: {}", userId);
         return dao.getAllLinksByUser(userId);
     }
@@ -66,7 +64,7 @@ public class LinkServiceImpl implements LinkService {
         return str.toString();
     }
     @Override
-    public  int decode(String str) {
+    public int decode(final String str) {
         int num = 0;
         for (int i = 0; i < str.length(); i++) {
             num = num * BASE + ALPHABET.indexOf(str.charAt(i));
@@ -80,13 +78,13 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public List<Link> getAllLinksByUser(Long userId, SingularAttribute<Link, ?> attr, boolean ascending, int startRecord, int pageSize) {
+    public List<Link> getAllLinksByUser(final Long userId, final SingularAttribute<Link, ?> attr, final boolean ascending, final int startRecord, final int pageSize) {
         LOGGER.debug("Get all links by user: {}", userId);
         return  dao.getAllLinksByUser(userId, attr, ascending, startRecord, pageSize);
     }
 
     @Override
-    public List<Link> getAllLinksByTag(Long tagId) {
+    public List<Link> getAllLinksByTag(final Long tagId) {
         LOGGER.debug("Get all links by tagId: {}", tagId);
         List<Link> result = new ArrayList<Link>();
         result.addAll(dao.getAllLinksByTag1(tagId));
@@ -98,7 +96,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Long getCount(Long userId) {
+    public Long getCount(final Long userId) {
         return dao.getCount(userId);
     }
 }

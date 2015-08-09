@@ -1,13 +1,13 @@
 package by.aplevich.linkshortener.util;
 
+import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.lang3.Validate;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.sql.Statement;
 import java.util.logging.Logger;
-
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.lang3.Validate;
 
 public class SchemaNameAwareBasicDataSource extends BasicDataSource {
 

@@ -6,6 +6,7 @@ import by.aplevich.linkshortener.datamodel.UserAccount;
 import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.webapp.app.BasicAuthenticationSession;
 import by.aplevich.linkshortener.webapp.page.BaseLayout;
+import by.aplevich.linkshortener.webapp.page.home.HomePage;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
@@ -21,19 +22,19 @@ import java.util.Iterator;
 
 public class StatPage extends BaseLayout {
     @Inject
-    LinkService linkService;
+    private LinkService linkService;
 
-    UserAccount user  = BasicAuthenticationSession.get().getUser();
+    private UserAccount user = BasicAuthenticationSession.get().getUser();
 
     public StatPage() {
         LinkDataProvider linkDataProvider = new LinkDataProvider();
         DataView<Link> dataView = new DataView<Link>("list", linkDataProvider, 20) {
             @Override
-            protected void populateItem(Item<Link> item) {
+            protected void populateItem(final Item<Link> item) {
                 Link link = item.getModelObject();
 
                 item.add(new Label("fullurl", link.getUrl()));
-                item.add(new Label("shorturl", "http://127.0.0.1:8081/" + link.getCode()));
+                item.add(new Label("shorturl", HomePage.HTTP_NUMBER_URL + link.getCode()));
                 item.add(new Label("quantity", link.getQuantity()));
             }
         };
@@ -49,7 +50,7 @@ public class StatPage extends BaseLayout {
         }
 
         @Override
-        public Iterator<? extends Link> iterator(long first, long count) {
+        public Iterator<? extends Link> iterator(final long first, final long count) {
             SingularAttribute<Link, ?> sortParam = getSort().getProperty();
             SortOrder propertySortOrder = getSortState().getPropertySortOrder(sortParam);
             boolean ascending = SortOrder.ASCENDING.equals(propertySortOrder);
@@ -62,9 +63,8 @@ public class StatPage extends BaseLayout {
         }
 
         @Override
-        public IModel<Link> model(Link link) {
+        public IModel<Link> model(final Link link) {
             return new CompoundPropertyModel<Link>(link);
         }
     }
 }
-

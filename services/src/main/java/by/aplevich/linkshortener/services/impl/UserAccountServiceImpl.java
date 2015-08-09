@@ -20,12 +20,12 @@ public class UserAccountServiceImpl implements UserAccountService {
     private UserAccountDao dao;
 
     @Override
-    public UserAccount get(Long id) {
+    public UserAccount get(final Long id) {
         return dao.getById(id);
     }
 
     @Override
-    public void createNewUser(UserAccount userOne) {
+    public void createNewUser(final UserAccount userOne) {
         Validate.isTrue(userOne.getId() == null,
                 "This method should be called for 'not saved yet' user only. Use UPDATE instead");
         LOGGER.debug("Create new: {}", userOne);
@@ -33,13 +33,13 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public void updateUser(UserAccount userOne) {
+    public void updateUser(final UserAccount userOne) {
         LOGGER.debug("Update: {}", userOne);
         dao.update(userOne);
     }
 
     @Override
-    public void deteteUser(Long id) {
+    public void deteteUser(final Long id) {
         LOGGER.debug("Delete user with id: {}", id);
         dao.delete(id);
     }
@@ -51,13 +51,8 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public UserAccount getUserByLogin(String userLogin) {
+    public UserAccount getUserByLogin(final String userLogin) {
         final List<UserAccount> allByFieldRestriction = dao.getAllByFieldRestriction(UserAccount_.login, userLogin);
         return !allByFieldRestriction.isEmpty() ? allByFieldRestriction.get(0) : null;
     }
-//
-//    @Override
-//    public List<UserRole> getRoles(Long userId) {
-//        return dao.getUserRole(userId);
-//    }
 }

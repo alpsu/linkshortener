@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class LanguagePanel extends Panel {
 
-    public LanguagePanel(String id) {
+    public LanguagePanel(final String id) {
         super(id);
 
         Form languageForm = new Form("languageForm");
@@ -29,7 +29,7 @@ public class LanguagePanel extends Panel {
         };
     }
 
-    private void changeUserLocaleTo(String localeString) {
+    private void changeUserLocaleTo(final String localeString) {
         BasicAuthenticationSession.get().setLocale(new Locale(localeString));
     }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 
 @MappedSuperclass
-public abstract class AbstractEntity implements Serializable{
+public abstract class AbstractEntity implements Serializable {
     public abstract Long getId();
 
     @Override
@@ -17,10 +17,13 @@ public abstract class AbstractEntity implements Serializable{
     }
 
     @Override
-    //
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractEntity)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractEntity)) {
+            return false;
+        }
 
         AbstractEntity that = (AbstractEntity) o;
 

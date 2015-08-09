@@ -1,6 +1,7 @@
 package by.aplevich.linkshortener.webapp.app;
 
 import by.aplevich.linkshortener.datamodel.UserAccount;
+import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.services.UserAccountService;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
@@ -9,7 +10,6 @@ import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
 
 import javax.inject.Inject;
-import java.util.List;
 
 public class BasicAuthenticationSession extends AuthenticatedWebSession {
     public static final String ROLE_SIGNED_IN = "SIGNED_IN";
@@ -19,10 +19,13 @@ public class BasicAuthenticationSession extends AuthenticatedWebSession {
 
     @Inject
     private UserAccountService userAccountService;
+    @Inject
+    private LinkService linkService;
 
     public BasicAuthenticationSession(final Request request) {
         super(request);
         Injector.get().inject(this);
+
     }
 
     public static BasicAuthenticationSession get() {

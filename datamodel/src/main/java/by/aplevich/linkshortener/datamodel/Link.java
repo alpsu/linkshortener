@@ -61,7 +61,7 @@ public class Link extends AbstractEntity {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -69,7 +69,7 @@ public class Link extends AbstractEntity {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
 
@@ -77,7 +77,7 @@ public class Link extends AbstractEntity {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(final String code) {
         this.code = code;
     }
 
@@ -85,7 +85,7 @@ public class Link extends AbstractEntity {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(final Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -93,7 +93,7 @@ public class Link extends AbstractEntity {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -101,7 +101,7 @@ public class Link extends AbstractEntity {
         return userAccount;
     }
 
-    public void setUserAccount(UserAccount userAccount) {
+    public void setUserAccount(final UserAccount userAccount) {
         this.userAccount = userAccount;
     }
 
@@ -109,7 +109,7 @@ public class Link extends AbstractEntity {
         return tagone;
     }
 
-    public void setTagone(Teg tagone) {
+    public void setTagone(final Teg tagone) {
         this.tagone = tagone;
     }
 
@@ -117,7 +117,7 @@ public class Link extends AbstractEntity {
         return tagtwo;
     }
 
-    public void setTagtwo(Teg tagtwo) {
+    public void setTagtwo(final Teg tagtwo) {
         this.tagtwo = tagtwo;
     }
 
@@ -125,7 +125,7 @@ public class Link extends AbstractEntity {
         return tagthree;
     }
 
-    public void setTagthree(Teg tagthree) {
+    public void setTagthree(final Teg tagthree) {
         this.tagthree = tagthree;
     }
 
@@ -133,7 +133,7 @@ public class Link extends AbstractEntity {
         return tagfour;
     }
 
-    public void setTagfour(Teg tagfour) {
+    public void setTagfour(final Teg tagfour) {
         this.tagfour = tagfour;
     }
 
@@ -141,16 +141,16 @@ public class Link extends AbstractEntity {
         return tagfive;
     }
 
-    public void setTagfive(Teg tagfive) {
+    public void setTagfive(final Teg tagfive) {
         this.tagfive = tagfive;
     }
 
     @Override
     public String toString() {
-        return "Link{" +
-                ", url='" + url + '\'' +
-                ", code='" + code + '\'' +
-                ", quantity=" + quantity +
-                ", description='" + description + '\'' + '}';
+        return "Link{"
+                + ", url='" + url + '\''
+                + ", code='" + code + '\''
+                + ", quantity=" + quantity
+                + ", description='" + description + '\'' + '}';
     }
 }

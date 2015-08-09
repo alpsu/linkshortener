@@ -11,19 +11,19 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class TegServiceImpl implements TegService{
+public class TegServiceImpl implements TegService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TegServiceImpl.class);
 
     @Inject
     private TegDao dao;
 
     @Override
-    public Teg get(Long id) {
+    public Teg get(final Long id) {
         return dao.getById(id);
     }
 
     @Override
-    public void saveOrUpdate(Teg teg) {
+    public void saveOrUpdate(final Teg teg) {
         if (teg.getId() == null) {
             LOGGER.debug("Save new: {}", teg);
             dao.insert(teg);
@@ -34,7 +34,7 @@ public class TegServiceImpl implements TegService{
     }
 
     @Override
-    public void delete(Teg teg) {
+    public void delete(final Teg teg) {
         LOGGER.debug("Remove: {}", teg);
         dao.delete(teg.getId());
     }
@@ -50,13 +50,8 @@ public class TegServiceImpl implements TegService{
         return dao.getAllTegs();
     }
 
-//    @Override
-//    public List<Place> getAllPlaces(SingularAttribute<Place, ?> attr, boolean ascending, int startRecord, int pageSize) {
-//        return dao.getAllPlaces(attr,ascending,startRecord,pageSize);
-//    }
-
     @Override
-    public Teg getByName(String name) {
+    public Teg getByName(final String name) {
         return dao.getByName(name);
     }
 }

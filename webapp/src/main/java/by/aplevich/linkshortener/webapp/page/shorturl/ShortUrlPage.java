@@ -12,4 +12,3 @@ public class ShortUrlPage extends BaseLayout {
         add(fullShort);
     }
 }
-

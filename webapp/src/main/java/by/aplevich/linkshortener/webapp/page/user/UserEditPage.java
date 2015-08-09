@@ -7,7 +7,10 @@ import by.aplevich.linkshortener.webapp.page.BaseLayout;
 import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.bean.validation.PropertyValidator;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.SubmitLink;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -15,13 +18,12 @@ import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 
 public class UserEditPage extends BaseLayout {
     @Inject
     private UserAccountService userService;
 
-    public UserEditPage(UserAccount userAccount) {
+    public UserEditPage(final UserAccount userAccount) {
         super();
         Form<UserAccount> form = new Form<>("form", new CompoundPropertyModel<UserAccount>(userAccount));
 

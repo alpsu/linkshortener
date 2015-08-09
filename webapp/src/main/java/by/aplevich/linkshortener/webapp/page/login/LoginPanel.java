@@ -1,7 +1,5 @@
 package by.aplevich.linkshortener.webapp.page.login;
 
-//
-
 import by.aplevich.linkshortener.datamodel.UserAccount;
 import by.aplevich.linkshortener.webapp.app.BasicAuthenticationSession;
 import by.aplevich.linkshortener.webapp.app.WicketWebApplication;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class LoginPanel extends Panel {
 
-    public LoginPanel(String id) {
+    public LoginPanel(final String id) {
         super(id);
     }
 

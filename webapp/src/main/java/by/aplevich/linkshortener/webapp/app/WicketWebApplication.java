@@ -1,5 +1,6 @@
 package by.aplevich.linkshortener.webapp.app;
 
+import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.webapp.page.home.HomePage;
 import by.aplevich.linkshortener.webapp.page.login.LoginPage;
 import org.apache.wicket.RuntimeConfigurationType;
@@ -19,11 +20,12 @@ import javax.inject.Inject;
 @Component("wicketWebApplicationBean")
 public class WicketWebApplication extends AuthenticatedWebApplication {
 
-    @Inject
-    private ApplicationContext applicationContext;
-
     public static final String HOME_URL = "/home";
     public static final String LOGIN_URL = "/login";
+    @Inject
+    private ApplicationContext applicationContext;
+    @Inject
+    private LinkService linkService;
 
     /**
      * @see org.apache.wicket.Application#init()
@@ -56,6 +58,7 @@ public class WicketWebApplication extends AuthenticatedWebApplication {
             getMarkupSettings().setCompressWhitespace(true);
             getMarkupSettings().setStripWicketTags(true);
         }
+
         mountPage(HOME_URL, HomePage.class);
         mountPage(LOGIN_URL, LoginPage.class);
     }
@@ -67,7 +70,7 @@ public class WicketWebApplication extends AuthenticatedWebApplication {
 
     @Override
     protected Class<? extends WebPage> getSignInPageClass() {
-         return LoginPage.class;
+        return LoginPage.class;
     }
 
     @Override

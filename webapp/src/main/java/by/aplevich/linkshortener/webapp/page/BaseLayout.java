@@ -1,6 +1,7 @@
 package by.aplevich.linkshortener.webapp.page;
 
 
+import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.webapp.page.home.HomePage;
 import by.aplevich.linkshortener.webapp.page.language.LanguagePanel;
 import by.aplevich.linkshortener.webapp.page.login.LoginPanel;
@@ -13,7 +14,12 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import javax.inject.Inject;
+
 public abstract class BaseLayout extends WebPage {
+
+    @Inject
+    private LinkService linkService;
 
     @Override
     protected void onInitialize() {

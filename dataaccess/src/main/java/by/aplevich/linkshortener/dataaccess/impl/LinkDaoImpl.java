@@ -23,7 +23,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
     }
 
     @Override
-    public List<Link> getAllLinksByUser(Long userId) {
+    public List<Link> getAllLinksByUser(final Long userId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
@@ -40,14 +40,14 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
     public Long getNextId() {
         EntityManager em = getEm();
         Query q1 = em.createNativeQuery("SELECT nextval('link_id_seq')");
-        BigInteger id = (BigInteger)q1.getSingleResult();
+        BigInteger id = (BigInteger) q1.getSingleResult();
         String query2 = "SELECT setval('link_id_seq', " + id + " , false)";
         em.createNativeQuery(query2).getSingleResult();
         return id.longValue();
     }
 
     @Override
-    public Link getById(Long id) {
+    public Link getById(final Long id) {
         EntityManager em = getEm();
         CriteriaBuilder cBuilder = em.getCriteriaBuilder();
 
@@ -69,7 +69,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
     }
 
     @Override
-    public List<Link> getAllLinksByUser(Long userId, SingularAttribute<Link, ?> attr, boolean ascending, int first, int pageSize) {
+    public List<Link> getAllLinksByUser(final Long userId, final SingularAttribute<Link, ?> attr, final boolean ascending, final int first, final int pageSize) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
@@ -87,7 +87,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
     }
 
     @Override
-    public List<Link> getAllLinksByTag1(Long tagId) {
+    public List<Link> getAllLinksByTag1(final Long tagId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
@@ -101,7 +101,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
         return results;
     }
     @Override
-    public List<Link> getAllLinksByTag2(Long tagId) {
+    public List<Link> getAllLinksByTag2(final Long tagId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
@@ -115,7 +115,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
         return results;
     }
     @Override
-    public List<Link> getAllLinksByTag3(Long tagId) {
+    public List<Link> getAllLinksByTag3(final Long tagId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
@@ -129,7 +129,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
         return results;
     }
     @Override
-    public List<Link> getAllLinksByTag4(Long tagId) {
+    public List<Link> getAllLinksByTag4(final Long tagId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
@@ -143,7 +143,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
         return results;
     }
     @Override
-    public List<Link> getAllLinksByTag5(Long tagId) {
+    public List<Link> getAllLinksByTag5(final Long tagId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);
@@ -158,7 +158,7 @@ public class LinkDaoImpl extends AbstractDaoImpl<Long, Link> implements LinkDao 
     }
 
     @Override
-    public Long getCount(Long userId) {
+    public Long getCount(final Long userId) {
         CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
         CriteriaQuery<Link> criteria = cBuilder.createQuery(Link.class);

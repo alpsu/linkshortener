@@ -22,7 +22,7 @@ public class Teg extends AbstractEntity {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -30,14 +30,14 @@ public class Teg extends AbstractEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Teg{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Teg{"
+                + "name='" + name + '\''
+                + '}';
     }
 }

@@ -23,9 +23,15 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class HomePage extends BaseLayout {
+    public static String HTTP_NUMBER_URL = "http://127.0.0.1:8081/";
+    public static String HTTP_LOCAL_URL = "http://localhost:8081/";
+    private final TextArea<String> descr;
+    private final TextField<String> tagOne;
+    private final TextField<String> tagTwo;
+    private final TextField<String> tagThree;
+    private final TextField<String> tagFour;
+    private final TextField<String> tagFive;
     private UserAccount user;
-
-
     private String tmp;
     private Long id;
     private String url;
@@ -35,12 +41,10 @@ public class HomePage extends BaseLayout {
     private String tag3;
     private String tag4;
     private String tag5;
-
     @Inject
     private LinkService linkService;
     @Inject
     private TegService tegService;
-
     private boolean isUrlExist;
     private boolean isShortUrl;
     private boolean isEditing;
@@ -49,12 +53,6 @@ public class HomePage extends BaseLayout {
     private Teg tegthree;
     private Teg tegfour;
     private Teg tegfive;
-    private final TextArea<String> descr;
-    private final TextField<String> tagOne;
-    private final TextField<String> tagTwo;
-    private final TextField<String> tagThree;
-    private final TextField<String> tagFour;
-    private final TextField<String> tagFive;
 
     public HomePage(final PageParameters parameters) {
         super();
@@ -105,87 +103,92 @@ public class HomePage extends BaseLayout {
         urlform.add(tagFive);
 
         urlform.add(new SubmitLink("longinputbtn") {
-            @Override
-            public void onSubmit() {
-                super.onSubmit();
+                        @Override
+                        public void onSubmit() {
+                            super.onSubmit();
 
-                if (!isEditing) {
-                    user = BasicAuthenticationSession.get().getUser();
+                            if (!isEditing) {
+                                user = BasicAuthenticationSession.get().getUser();
 
-                    String value = longInput.getValue();
-                    if (!value.contains("http://")) {
-                        value = "http://" + value;
-                    }
-                    if (user != null) {
-                        checkUrlInBase(value);
-                    }
+                                String value = longInput.getValue();
+                                if (!value.contains("http://")) {
+                                    if (!value.contains("https://")) {
+                                        value = "http://" + value;
+                                    }
+                                }
+                                if (user != null) {
+                                    checkUrlInBase(value);
+                                }
 
-                    if (value.contains("http://localhost:8081/")) {
-                        tmp = value.replace("http://localhost:8081/", "");
-                    }
-                    if (value.contains("http://127.0.0.1:8081/")) {
-                        tmp = value.replace("http://127.0.0.1:8081/", "");
-                    }
+                                if (value.contains(HTTP_LOCAL_URL)) {
+                                    tmp = value.replace(HTTP_LOCAL_URL, "");
+                                }
+                                if (value.contains(HTTP_NUMBER_URL)) {
+                                    tmp = value.replace(HTTP_NUMBER_URL, "");
+                                }
 
-                    int shortUrlid;
-                    if (tmp != null) {
-                        shortUrlid = linkService.decode(tmp);
-                        isShortUrl = true;
-                    } else {
-                        shortUrlid = linkService.decode(value);
-                    }
+                                int shortUrlid;
+                                if (tmp != null) {
+                                    shortUrlid = linkService.decode(tmp);
+                                    isShortUrl = true;
+                                } else {
+                                    shortUrlid = linkService.decode(value);
+                                }
 
-                    Link link = null;
-                    try {
-                        link = linkService.get(Long.valueOf(shortUrlid));
-                    } catch (Exception e) {
-                        setResponsePage(HomePage.class, new PageParameters());
-                    }
+                                Link link = null;
+                                try {
+                                    link = linkService.get(Long.valueOf(shortUrlid));
+                                } catch (Exception e) {
+                                    setResponsePage(HomePage.class, new PageParameters());
+                                }
 
-                    if (link != null) {
-                        UserAccount uFromLink = link.getUserAccount();
-                        if ((user != null)  && (user.equals(uFromLink))) {
-                            PageParameters pageParameters = new PageParameters();
-                            pageParameters.add("url", link.getUrl());
-                            pageParameters.add("id", link.getId());
-                            pageParameters.add("desk", link.getDescription());
-                            pageParameters.add("tag1", link.getTagone().getName());
-                            pageParameters.add("tag2", link.getTagtwo().getName());
-                            pageParameters.add("tag3", link.getTagthree().getName());
-                            pageParameters.add("tag4", link.getTagfour().getName());
-                            pageParameters.add("tag5", link.getTagfive().getName());
-                            setResponsePage(HomePage.class, pageParameters);
-                        } else {
-                            setResponsePage(new StatShort(link.getId()));
+                                if (link != null) {
+                                    UserAccount uFromLink = link.getUserAccount();
+                                    if ((user != null) && (user.equals(uFromLink))) {
+                                        PageParameters pageParameters = new PageParameters();
+                                        pageParameters.add("url", link.getUrl());
+                                        pageParameters.add("id", link.getId());
+                                        pageParameters.add("desk", link.getDescription());
+                                        pageParameters.add("tag1", link.getTagone().getName());
+                                        pageParameters.add("tag2", link.getTagtwo().getName());
+                                        pageParameters.add("tag3", link.getTagthree().getName());
+                                        pageParameters.add("tag4", link.getTagfour().getName());
+                                        pageParameters.add("tag5", link.getTagfive().getName());
+                                        setResponsePage(HomePage.class, pageParameters);
+                                    } else {
+                                        setResponsePage(new StatShort(link.getId()));
+                                    }
+                                }
+
+                                if (!isShortUrl) {
+                                    if ((user == null) && (value != null)) {
+                                        setResponsePage(new LoginPage());
+                                    } else if (!isUrlExist) {
+                                        Long id = linkService.getNextId();
+                                        Link linkNew = new Link();
+                                        linkNew.setUrl(value);
+                                        String code = linkService.encode(id.intValue());
+                                        linkNew.setCode(code);
+                                        linkNew.setUserAccount(user);
+                                        linkNew.setQuantity(0);
+                                        createDescr(linkNew);
+                                        setResponsePage(new ShortUrlPage(HTTP_NUMBER_URL + code));
+                                    }
+                                }
+                            } else {
+                                Link linkFromBase = linkService.get(id);
+                                createDescr(linkFromBase);
+                                setResponsePage(HomePage.class, new PageParameters());
+                            }
                         }
                     }
 
-                    if (!isShortUrl) {
-                        if ((user == null) && (value != null)) {
-                            setResponsePage(new LoginPage());
-                        } else if (!isUrlExist) {
-                            Long id = linkService.getNextId();
-                            Link linkNew = new Link();
-                            linkNew.setUrl(value);
-                            String code = linkService.encode(id.intValue());
-                            linkNew.setCode(code);
-                            linkNew.setUserAccount(user);
-                            linkNew.setQuantity(0);
-                            createDescr(linkNew);
-                            setResponsePage(new ShortUrlPage("http://127.0.0.1:8081/" + code));
-                        }
-                    }
-                } else {
-                    Link linkFromBase = linkService.get(id);
-                    createDescr(linkFromBase);
-                    setResponsePage(HomePage.class, new PageParameters());
-                }
-            }
-        });
+        );
+
         add(urlform);
     }
 
-    private void createDescr(Link linkTmp) {
+    private void createDescr(final Link linkTmp) {
         linkTmp.setDescription(descr.getValue());
         createTags(tagOne.getValue(), tagTwo.getValue(), tagThree.getValue(), tagFour.getValue(), tagFive.getValue());
         linkTmp.setTagone(tegone);
@@ -196,7 +199,7 @@ public class HomePage extends BaseLayout {
         linkService.saveOrUpdate(linkTmp);
     }
 
-    private void createTags(String tagOneName, String tagTwoName, String tagThreeName, String tagFourName, String tagFiveName) {
+    private void createTags(final String tagOneName, final String tagTwoName, final String tagThreeName, final String tagFourName, final String tagFiveName) {
         if (tagOneName != null) {
             try {
                 tegone = tegService.getByName(tagOneName);
@@ -250,7 +253,7 @@ public class HomePage extends BaseLayout {
             String url = one.getUrl();
             if (url.equals(value)) {
                 isUrlExist = true;
-                setResponsePage(new ShortUrlPage("http://127.0.0.1:8081/" + one.getCode()));
+                setResponsePage(new ShortUrlPage(HTTP_NUMBER_URL + one.getCode()));
             }
         }
     }

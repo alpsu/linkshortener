@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
-import java.math.BigInteger;
 import java.util.List;
 
 public abstract class AbstractDaoImpl<ID, Entity> implements AbstractDao<ID, Entity> {
@@ -27,7 +26,7 @@ public abstract class AbstractDaoImpl<ID, Entity> implements AbstractDao<ID, Ent
     }
 
     @Override
-    public Entity getById(ID id) {
+    public Entity getById(final ID id) {
         return em.find(getEntityClass(), id);
     }
 
@@ -50,7 +49,7 @@ public abstract class AbstractDaoImpl<ID, Entity> implements AbstractDao<ID, Ent
     }
 
     @Override
-    public void delete(List<ID> ids) {
+    public void delete(final List<ID> ids) {
         em.createQuery(String.format("Delete from %s e where e.id in (:ids)", entityClass.getSimpleName()))
                 .setParameter("ids", ids).executeUpdate();
     }
