@@ -23,8 +23,8 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class HomePage extends BaseLayout {
-    public static String HTTP_NUMBER_URL = "http://127.0.0.1:8081/";
-    public static String HTTP_LOCAL_URL = "http://localhost:8081/";
+    public static String HTTP_NUMBER_URL = "http://127.0.0.1:8081/r/";
+    public static String HTTP_LOCAL_URL = "http://localhost:8081/r/";
     private final TextArea<String> descr;
     private final TextField<String> tagOne;
     private final TextField<String> tagTwo;

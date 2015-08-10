@@ -51,6 +51,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>redirectServlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/r/*</url-pattern>
     </servlet-mapping>
 </web-app>

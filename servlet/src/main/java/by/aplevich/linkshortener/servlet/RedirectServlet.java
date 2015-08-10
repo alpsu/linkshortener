@@ -24,7 +24,7 @@ public class RedirectServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
-        String value = request.getRequestURI().substring(1);
+        String value = request.getRequestURI().substring(3);
         Link link = null;
         try {
             link = linkService.get(Long.valueOf(linkService.decode(value)));
