@@ -7,6 +7,7 @@ import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.webapp.app.BasicAuthenticationSession;
 import by.aplevich.linkshortener.webapp.page.BaseLayout;
 import by.aplevich.linkshortener.webapp.page.home.HomePage;
+import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
@@ -40,13 +41,16 @@ public class StatPage extends BaseLayout {
         };
         add(dataView);
         add(new PagingNavigator("paging", dataView));
+        add(new OrderByBorder<SingularAttribute<Link, ?>>("sortByUrl", Link_.url, linkDataProvider));
+        add(new OrderByBorder<SingularAttribute<Link, ?>>("sortByCode", Link_.code, linkDataProvider));
+        add(new OrderByBorder<SingularAttribute<Link, ?>>("sortByQuantity", Link_.quantity, linkDataProvider));
     }
 
     private class LinkDataProvider extends SortableDataProvider<Link, SingularAttribute<Link, ?>> {
 
         public LinkDataProvider() {
             super();
-            setSort(Link_.url, SortOrder.ASCENDING);
+            setSort(Link_.code, SortOrder.ASCENDING);
         }
 
         @Override

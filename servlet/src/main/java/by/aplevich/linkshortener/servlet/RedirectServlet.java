@@ -35,8 +35,8 @@ public class RedirectServlet extends HttpServlet {
             final String url = link.getUrl();
 
             if (!StringUtils.isEmpty(url)) {
-                int quontity = link.getQuantity();
-                link.setQuantity(++quontity);
+                int quantity = link.getQuantity();
+                link.setQuantity(++quantity);
                 linkService.saveOrUpdate(link);
                 response.sendRedirect(response.encodeRedirectURL(url));
             }

@@ -1,15 +1,15 @@
 <wicket:extend xmlns:wicket="http://wicket.apache.org">
-    <div class="container" align="center">
+    <div class="container table table-hover" align="center">
         <table>
             <thead>
             <tr>
-                <th>
+                <th wicket:id="sortByUrl">
                     <wicket:message key="fullUrl"/>
                 </th>
-                <th>
+                <th wicket:id="sortByCode">
                     <wicket:message key="input.code"/>
                 </th>
-                <th>
+                <th wicket:id="sortByQuantity">
                     <wicket:message key="quantity"/>
                 </th>
             </tr>
