@@ -23,9 +23,10 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class HomePage extends BaseLayout {
-    public static String HTTP_NUMBER_URL = "http://127.0.0.1:8081/r/";
-    public static String HTTP_LOCAL_URL = "http://localhost:8081/r/";
+    public static final String HTTP_NUMBER_URL = "http://127.0.0.1:8081/r/";
+    public static final String HTTP_LOCAL_URL = "http://localhost:8081/r/";
     private final TextArea<String> descr;
+    private final TextField<String> longInput;
     private final TextField<String> tagOne;
     private final TextField<String> tagTwo;
     private final TextField<String> tagThree;
@@ -33,7 +34,7 @@ public class HomePage extends BaseLayout {
     private final TextField<String> tagFive;
     private UserAccount user;
     private String tmp;
-    private Long id;
+    private Long idNum;
     private String url;
     private String description;
     private String tag1;
@@ -56,12 +57,12 @@ public class HomePage extends BaseLayout {
 
     public HomePage(final PageParameters parameters) {
         super();
-        if (parameters.getNamedKeys().contains("id")) {
-            id = parameters.get("id").toLong();
+        if (parameters.getNamedKeys().contains("idNum")) {
+            idNum = parameters.get("idNum").toLong();
         }
         final Form urlform = new Form("urlform", new CompoundPropertyModel(this));
 
-        TextField<String> longInput = new TextField<>("url");
+        longInput = new TextField<String>("url");
         if (parameters.getNamedKeys().contains("url")) {
             url = parameters.get("url").toString();
             longInput.setEnabled(false);
@@ -81,25 +82,30 @@ public class HomePage extends BaseLayout {
             tag1 = parameters.get("tag1").toString();
         }
         urlform.add(tagOne);
+
         tagTwo = new TextField<String>("tag2");
         if (parameters.getNamedKeys().contains("tag2")) {
             tag2 = parameters.get("tag2").toString();
         }
+        tagOne.setOutputMarkupId(true);
         urlform.add(tagTwo);
         tagThree = new TextField<String>("tag3");
         if (parameters.getNamedKeys().contains("tag3")) {
             tag3 = parameters.get("tag3").toString();
         }
+        tagOne.setOutputMarkupId(true);
         urlform.add(tagThree);
         tagFour = new TextField<String>("tag4");
         if (parameters.getNamedKeys().contains("tag4")) {
             tag4 = parameters.get("tag4").toString();
         }
+        tagOne.setOutputMarkupId(true);
         urlform.add(tagFour);
         tagFive = new TextField<String>("tag5");
         if (parameters.getNamedKeys().contains("tag5")) {
             tag5 = parameters.get("tag5").toString();
         }
+        tagOne.setOutputMarkupId(true);
         urlform.add(tagFive);
 
         urlform.add(new SubmitLink("longinputbtn") {
@@ -147,7 +153,7 @@ public class HomePage extends BaseLayout {
                                     if ((user != null) && (user.equals(uFromLink))) {
                                         PageParameters pageParameters = new PageParameters();
                                         pageParameters.add("url", link.getUrl());
-                                        pageParameters.add("id", link.getId());
+                                        pageParameters.add("idNum", link.getId());
                                         pageParameters.add("desk", link.getDescription());
                                         pageParameters.add("tag1", link.getTagone().getName());
                                         pageParameters.add("tag2", link.getTagtwo().getName());
@@ -176,7 +182,7 @@ public class HomePage extends BaseLayout {
                                     }
                                 }
                             } else {
-                                Link linkFromBase = linkService.get(id);
+                                Link linkFromBase = linkService.get(idNum);
                                 createDescr(linkFromBase);
                                 setResponsePage(HomePage.class, new PageParameters());
                             }

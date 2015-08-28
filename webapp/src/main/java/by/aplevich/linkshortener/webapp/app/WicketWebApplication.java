@@ -1,6 +1,5 @@
 package by.aplevich.linkshortener.webapp.app;
 
-import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.webapp.page.home.HomePage;
 import by.aplevich.linkshortener.webapp.page.login.LoginPage;
 import org.apache.wicket.RuntimeConfigurationType;
@@ -20,12 +19,10 @@ import javax.inject.Inject;
 @Component("wicketWebApplicationBean")
 public class WicketWebApplication extends AuthenticatedWebApplication {
 
-    public static final String HOME_URL = "/home";
-    public static final String LOGIN_URL = "/login";
+    public static final String HOME_URL = "/wicket/home";
+    public static final String LOGIN_URL = "/wicket/login";
     @Inject
     private ApplicationContext applicationContext;
-    @Inject
-    private LinkService linkService;
 
     /**
      * @see org.apache.wicket.Application#init()

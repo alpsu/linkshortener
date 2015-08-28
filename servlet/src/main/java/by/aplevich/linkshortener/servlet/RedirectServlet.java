@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RedirectServlet extends HttpServlet {
 
+    private static final int NUM_SYMBOLS_FOR_DELETE = 3;
+    private static final String PATH_TO_HOME = "http://127.0.0.1:8081/home";
     @Autowired
     private LinkService linkService;
 
@@ -24,12 +26,12 @@ public class RedirectServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
-        String value = request.getRequestURI().substring(3);
+        String value = request.getRequestURI().substring(NUM_SYMBOLS_FOR_DELETE);
         Link link = null;
         try {
             link = linkService.get(Long.valueOf(linkService.decode(value)));
         } catch (Exception e) {
-            response.sendRedirect(response.encodeRedirectURL("http://127.0.0.1:8081/home"));
+            response.sendRedirect(response.encodeRedirectURL(PATH_TO_HOME));
         }
         if (link != null) {
             final String url = link.getUrl();
