@@ -1,7 +1,11 @@
 package by.aplevich.linkshortener;
 
-import by.aplevich.linkshortener.datamodel.*;
-import by.aplevich.linkshortener.services.*;
+import by.aplevich.linkshortener.datamodel.Link;
+import by.aplevich.linkshortener.datamodel.Teg;
+import by.aplevich.linkshortener.datamodel.UserAccount;
+import by.aplevich.linkshortener.services.LinkService;
+import by.aplevich.linkshortener.services.TegService;
+import by.aplevich.linkshortener.services.UserAccountService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataImpl;
@@ -121,16 +125,15 @@ public abstract class AbstractServiceTest {
         link.setCode(randomString("c"));
         link.setQuantity(randomInteger());
         link.setDescription(randomString("descr"));
-        Teg teg1 = createTeg();
-        Teg teg2 = createTeg();
-        Teg teg3 = createTeg();
-        Teg teg4 = createTeg();
-        Teg teg5 = createTeg();
-        link.setTagone(teg1);
-        link.setTagtwo(teg2);
-        link.setTagthree(teg3);
-        link.setTagfour(teg4);
-        link.setTagfive(teg5);
+
+        int randomTestObjectsCount = randomTestObjectsCount();
+        HashSet<Teg> tags = new HashSet<>();
+        for (int i = 0; i < randomTestObjectsCount; i++) {
+            Teg teg = createTeg();
+            tegService.saveOrUpdate(teg);
+            tags.add(teg);
+        }
+        link.setTegs(tags);
         linkService.saveOrUpdate(link);
         return link;
     }

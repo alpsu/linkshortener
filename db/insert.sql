@@ -1,5 +1,6 @@
 SET search_path TO 'public';
 
+DELETE FROM link_2_teg;
 DELETE FROM link;
 DELETE FROM teg;
 DELETE FROM user_account;

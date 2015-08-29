@@ -1,14 +1,20 @@
 package by.aplevich.linkshortener.webapp.page.statshort;
 
+import by.aplevich.linkshortener.datamodel.Teg;
 import by.aplevich.linkshortener.services.LinkService;
 import by.aplevich.linkshortener.webapp.page.BaseLayout;
 import by.aplevich.linkshortener.webapp.page.linkbytagpage.LinkByTagPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Set;
 
 public class StatShort extends BaseLayout {
     private String description;
@@ -20,6 +26,7 @@ public class StatShort extends BaseLayout {
     public StatShort(final Long linkId) {
         link = linkService.get(linkId);
         description = link.getDescription();
+        Set<Teg> tegs = link.getTegs();
         add(new Label("statshort", link.getUrl()));
 
         TextArea<String> descr = new TextArea<String>("description", new PropertyModel<String>(this, "description"));
@@ -27,45 +34,27 @@ public class StatShort extends BaseLayout {
         descr.setEnabled(false);
         add(descr);
 
-        Link<String> tagOneLink = new Link<String>("tagonelink") {
+        add(new ListView<Teg>("list-teg", new ArrayList<Teg>(tegs)) {
             @Override
-            public void onClick() {
-                setResponsePage(new LinkByTagPage(link.getTagone().getName()));
+            protected void populateItem(ListItem<Teg> item) {
+                Teg teg = item.getModelObject();
+                Link tegLink = new Link<String>("teg") {
+                    @Override
+                    public void onClick() {
+                        setResponsePage(new LinkByTagPage(teg.getName()));
+                    }
+                };
+                tegLink.add(new Label("tegName", new Model<>(teg.getName())));
+                item.add(tegLink);
             }
-        };
-
-        add(tagOneLink.add(new Label("tagonename", link.getTagone().getName())));
-        Link<String> tagTwoLink = new Link<String>("tagtwolink") {
-            @Override
-            public void onClick() {
-                setResponsePage(new LinkByTagPage(link.getTagtwo().getName()));
-            }
-        };
-
-        add(tagTwoLink.add(new Label("tagtwoname", link.getTagtwo().getName())));
-        Link<String> tagThreeLink = new Link<String>("tagthreelink") {
-            @Override
-            public void onClick() {
-                setResponsePage(new LinkByTagPage(link.getTagthree().getName()));
-            }
-        };
-
-        add(tagThreeLink.add(new Label("tagthreename", link.getTagthree().getName())));
-        Link<String> tagFourLink = new Link<String>("tagfourlink") {
-            @Override
-            public void onClick() {
-                setResponsePage(new LinkByTagPage(link.getTagfour().getName()));
-            }
-        };
-
-        add(tagFourLink.add(new Label("tagfourname", link.getTagfour().getName())));
-        Link<String> tagFiveLink = new Link<String>("tagfivelink") {
-            @Override
-            public void onClick() {
-                setResponsePage(new LinkByTagPage(link.getTagfive().getName()));
-            }
-        };
-
-        add(tagFiveLink.add(new Label("tagfivename", link.getTagfive().getName())));
+        });
+//        Link<String> tagOneLink = new Link<String>("tagonelink") {
+//            @Override
+//            public void onClick() {
+//                setResponsePage(new LinkByTagPage(link.getTagone().getName()));
+//            }
+//        };
+//
+//        add(tagOneLink.add(new Label("tagonename", link.getTagone().getName())));
     }
 }

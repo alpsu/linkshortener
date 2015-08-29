@@ -10,9 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.PersistenceException;
-import javax.validation.constraints.AssertTrue;
+import java.util.HashSet;
 import java.util.List;
-import java.util.LongSummaryStatistics;
 
 public class LinkServiceTest extends AbstractServiceTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(LinkServiceTest.class);
@@ -31,7 +30,7 @@ public class LinkServiceTest extends AbstractServiceTest {
         Assert.assertEquals(linkFromDb.getDescription(), link.getDescription());
         Assert.assertEquals(linkFromDb.getDescription(), link.getDescription());
         Assert.assertEquals(linkFromDb.getDescription(), link.getDescription());
-        Assert.assertEquals(linkFromDb.getTagone(), link.getTagone());
+        Assert.assertEquals(linkFromDb.getTegs(), link.getTegs());
 
         linkFromDb.setUrl("newURL");
         linkFromDb.setCode("newCode");
@@ -119,16 +118,14 @@ public class LinkServiceTest extends AbstractServiceTest {
         link.setUserAccount(user);
         link.setQuantity(randomInteger());
         link.setDescription(randomString("descr"));
-        Teg teg1 = createTeg();
-        Teg teg2 = createTeg();
-        Teg teg3 = createTeg();
-        Teg teg4 = createTeg();
-        Teg teg5 = createTeg();
-        link.setTagone(teg1);
-        link.setTagtwo(teg2);
-        link.setTagthree(teg3);
-        link.setTagfour(teg4);
-        link.setTagfive(teg5);
+        int randomTestObjectsCount = randomTestObjectsCount();
+        HashSet<Teg> tags = new HashSet<>();
+        for (int i = 0; i < randomTestObjectsCount; i++) {
+            Teg teg = createTeg();
+            tegService.saveOrUpdate(teg);
+            tags.add(teg);
+        }
+        link.setTegs(tags);
         linkService.saveOrUpdate(link);
 
         Link linkFromDB = linkService.get(id);

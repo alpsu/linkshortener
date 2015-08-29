@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.persistence.metamodel.SingularAttribute;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +21,10 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public Link get(final Long id) {
+        return dao.get(id);
+    }
+
+    public Link getById(final Long id) {
         return dao.getById(id);
     }
 
@@ -81,18 +84,6 @@ public class LinkServiceImpl implements LinkService {
     public List<Link> getAllLinksByUser(final Long userId, final SingularAttribute<Link, ?> attr, final boolean ascending, final int startRecord, final int pageSize) {
         LOGGER.debug("Get all links by user: {}", userId);
         return  dao.getAllLinksByUser(userId, attr, ascending, startRecord, pageSize);
-    }
-
-    @Override
-    public List<Link> getAllLinksByTag(final Long tagId) {
-        LOGGER.debug("Get all links by tagId: {}", tagId);
-        List<Link> result = new ArrayList<Link>();
-        result.addAll(dao.getAllLinksByTag1(tagId));
-        result.addAll(dao.getAllLinksByTag2(tagId));
-        result.addAll(dao.getAllLinksByTag3(tagId));
-        result.addAll(dao.getAllLinksByTag4(tagId));
-        result.addAll(dao.getAllLinksByTag5(tagId));
-        return result;
     }
 
     @Override

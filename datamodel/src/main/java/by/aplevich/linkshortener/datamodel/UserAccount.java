@@ -8,22 +8,25 @@ import javax.validation.constraints.Size;
  * Contains user data
  */
 @Entity
+@Table(name = "user_account", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "login")})
 public class UserAccount extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column
+    @Column(name = "name", nullable = false, length = 100)
     @NotNull
     @Size(max = 100)
     private String name;
 
-    @Column
+    @Column(name = "login", unique = true, nullable = false, length = 60)
     @NotNull
     @Size(max = 60, min = 6)
     private String login;
 
-    @Column
+    @Column(name = "password", nullable = false, length = 35)
     @NotNull
     @Size(max = 35, min = 8)
     private String password;
@@ -84,7 +87,9 @@ public class UserAccount extends AbstractEntity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + login.hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getLogin().hashCode();
+        result = 31 * result + getPassword().hashCode();
         return result;
     }
 

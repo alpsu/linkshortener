@@ -10,7 +10,7 @@
     <entry key="input.long">Введите URL</entry>
     <entry key="input.code">Короткая ссылка</entry>
     <entry key="input.description">Описание</entry>
-    <entry key="input.tag">Тег</entry>
+    <entry key="input.tag">Теги. Пробел для разделения</entry>
     <entry key="p.createUser">Новый пользователь</entry>
     <entry key="p.text">Страница входа</entry>
     <entry key="p.login">Войти</entry>

@@ -20,40 +20,30 @@ import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HomePage extends BaseLayout {
     public static final String HTTP_NUMBER_URL = "http://127.0.0.1:8081/r/";
     public static final String HTTP_LOCAL_URL = "http://localhost:8081/r/";
     private final TextArea<String> descr;
     private final TextField<String> longInput;
-    private final TextField<String> tagOne;
-    private final TextField<String> tagTwo;
-    private final TextField<String> tagThree;
-    private final TextField<String> tagFour;
-    private final TextField<String> tagFive;
+    private final TextArea<String> tag;
+    @Inject
+    private LinkService linkService;
+    @Inject
+    private TegService tegService;
     private UserAccount user;
     private String tmp;
     private Long idNum;
     private String url;
     private String description;
-    private String tag1;
-    private String tag2;
-    private String tag3;
-    private String tag4;
-    private String tag5;
-    @Inject
-    private LinkService linkService;
-    @Inject
-    private TegService tegService;
+    private String tags;
+    private Set<Teg> tmpTegs;
     private boolean isUrlExist;
     private boolean isShortUrl;
     private boolean isEditing;
-    private Teg tegone;
-    private Teg tegtwo;
-    private Teg tegthree;
-    private Teg tegfour;
-    private Teg tegfive;
 
     public HomePage(final PageParameters parameters) {
         super();
@@ -62,7 +52,7 @@ public class HomePage extends BaseLayout {
         }
         final Form urlform = new Form("urlform", new CompoundPropertyModel(this));
 
-        longInput = new TextField<String>("url");
+        longInput = new TextField<>("url");
         if (parameters.getNamedKeys().contains("url")) {
             url = parameters.get("url").toString();
             longInput.setEnabled(false);
@@ -71,42 +61,17 @@ public class HomePage extends BaseLayout {
         urlform.add(longInput);
 
 
-        descr = new TextArea<String>("description");
+        descr = new TextArea<>("description");
         if (parameters.getNamedKeys().contains("desk")) {
             description = parameters.get("desk").toString();
         }
         urlform.add(descr);
 
-        tagOne = new TextField<String>("tag1");
-        if (parameters.getNamedKeys().contains("tag1")) {
-            tag1 = parameters.get("tag1").toString();
+        tag = new TextArea<>("tags");
+        if (parameters.getNamedKeys().contains("tags")) {
+            tags = parameters.get("tags").toString();
         }
-        urlform.add(tagOne);
-
-        tagTwo = new TextField<String>("tag2");
-        if (parameters.getNamedKeys().contains("tag2")) {
-            tag2 = parameters.get("tag2").toString();
-        }
-        tagOne.setOutputMarkupId(true);
-        urlform.add(tagTwo);
-        tagThree = new TextField<String>("tag3");
-        if (parameters.getNamedKeys().contains("tag3")) {
-            tag3 = parameters.get("tag3").toString();
-        }
-        tagOne.setOutputMarkupId(true);
-        urlform.add(tagThree);
-        tagFour = new TextField<String>("tag4");
-        if (parameters.getNamedKeys().contains("tag4")) {
-            tag4 = parameters.get("tag4").toString();
-        }
-        tagOne.setOutputMarkupId(true);
-        urlform.add(tagFour);
-        tagFive = new TextField<String>("tag5");
-        if (parameters.getNamedKeys().contains("tag5")) {
-            tag5 = parameters.get("tag5").toString();
-        }
-        tagOne.setOutputMarkupId(true);
-        urlform.add(tagFive);
+        urlform.add(tag);
 
         urlform.add(new SubmitLink("longinputbtn") {
                         @Override
@@ -143,7 +108,7 @@ public class HomePage extends BaseLayout {
 
                                 Link link = null;
                                 try {
-                                    link = linkService.get(Long.valueOf(shortUrlid));
+                                    link = linkService.getById(Long.valueOf(shortUrlid));
                                 } catch (Exception e) {
                                     setResponsePage(HomePage.class, new PageParameters());
                                 }
@@ -155,11 +120,8 @@ public class HomePage extends BaseLayout {
                                         pageParameters.add("url", link.getUrl());
                                         pageParameters.add("idNum", link.getId());
                                         pageParameters.add("desk", link.getDescription());
-                                        pageParameters.add("tag1", link.getTagone().getName());
-                                        pageParameters.add("tag2", link.getTagtwo().getName());
-                                        pageParameters.add("tag3", link.getTagthree().getName());
-                                        pageParameters.add("tag4", link.getTagfour().getName());
-                                        pageParameters.add("tag5", link.getTagfive().getName());
+                                        String convertedTags = convertTegsToString(link);
+                                        pageParameters.add("tags", convertedTags);
                                         setResponsePage(HomePage.class, pageParameters);
                                     } else {
                                         setResponsePage(new StatShort(link.getId()));
@@ -194,63 +156,41 @@ public class HomePage extends BaseLayout {
         add(urlform);
     }
 
+    private String convertTegsToString(final Link link) {
+        Set<Teg> tags = link.getTegs();
+        StringBuffer str = new StringBuffer();
+        for (Teg tmp : tags) {
+            str.append(tmp.getName()).append(' ');
+        }
+        return str.toString().trim();
+    }
+
     private void createDescr(final Link linkTmp) {
         linkTmp.setDescription(descr.getValue());
-        createTags(tagOne.getValue(), tagTwo.getValue(), tagThree.getValue(), tagFour.getValue(), tagFive.getValue());
-        linkTmp.setTagone(tegone);
-        linkTmp.setTagtwo(tegtwo);
-        linkTmp.setTagthree(tegthree);
-        linkTmp.setTagfour(tegfour);
-        linkTmp.setTagfive(tegfive);
+        tmpTegs = createTags(tag.getValue());
+        linkTmp.setTegs(tmpTegs);
         linkService.saveOrUpdate(linkTmp);
     }
 
-    private void createTags(final String tagOneName, final String tagTwoName, final String tagThreeName, final String tagFourName, final String tagFiveName) {
-        if (tagOneName != null) {
-            try {
-                tegone = tegService.getByName(tagOneName);
-            } catch (Exception e) {
-                tegone = new Teg();
-                tegone.setName(tagOneName);
-                tegService.saveOrUpdate(tegone);
+    private Set<Teg> createTags(final String value) {
+        Set<Teg> tegs = new HashSet<>();
+        if ((value != null) && (!value.equals(""))) {
+            String tmpValue = value.trim();
+            String[] temp;
+            temp = tmpValue.split(" ");
+
+            for (String tmpStr : temp) {
+                try {
+                    Teg teg = tegService.getByName(tmpStr);
+                    tegs.add(teg);
+                } catch (Exception e) {
+                    Teg teg = new Teg();
+                    teg.setName(tmpStr);
+                    tegService.saveOrUpdate(teg);
+                }
             }
         }
-        if (tagTwoName != null) {
-            try {
-                tegtwo = tegService.getByName(tagTwoName);
-            } catch (Exception e) {
-                tegtwo = new Teg();
-                tegtwo.setName(tagTwoName);
-                tegService.saveOrUpdate(tegtwo);
-            }
-        }
-        if (tagThreeName != null) {
-            try {
-                tegthree = tegService.getByName(tagThreeName);
-            } catch (Exception e) {
-                tegthree = new Teg();
-                tegthree.setName(tagThreeName);
-                tegService.saveOrUpdate(tegthree);
-            }
-        }
-        if (tagFourName != null) {
-            try {
-                tegfour = tegService.getByName(tagFourName);
-            } catch (Exception e) {
-                tegfour = new Teg();
-                tegfour.setName(tagFourName);
-                tegService.saveOrUpdate(tegfour);
-            }
-        }
-        if (tagFiveName != null) {
-            try {
-                tegfive = tegService.getByName(tagFiveName);
-            } catch (Exception e) {
-                tegfive = new Teg();
-                tegfive.setName(tagFiveName);
-                tegService.saveOrUpdate(tegfive);
-            }
-        }
+        return tegs;
     }
 
     private void checkUrlInBase(String value) {

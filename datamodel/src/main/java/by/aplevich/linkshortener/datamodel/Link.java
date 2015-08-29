@@ -4,57 +4,60 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Details of link
  */
 @Entity
+@Table(name = "link", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "code")})
 public class Link extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column
+    @Column(name = "url", nullable = false, length = 500)
     @NotNull
     @Min(value = 0)
     @Max(value = 500)
     private String url;
 
-    @Column
+    @Column(name = "code", unique = true, nullable = false, length = 20)
     @NotNull
     @Min(value = 0)
-    @Max(value = 500)
+    @Max(value = 20)
     private String code;
 
-    @Column
+    @Column(name = "quantity", nullable = false)
     @NotNull
     @Min(value = 0)
     @Max(value = Integer.MAX_VALUE)
     private Integer quantity;
 
-    @Column
+    @Column(name = "description", nullable = true, length = 500)
     @Min(value = 0)
     @Max(value = 500)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = UserAccount.class)
     @NotNull
     private UserAccount userAccount;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tagone;
+    @ManyToMany(targetEntity = Teg.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "link_2_teg", joinColumns = {@JoinColumn(name = "link_id", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "teg_id", referencedColumnName = "ID")})
+    private Set<Teg> tegs = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tagtwo;
+    public Set<Teg> getTegs() {
+        return tegs;
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tagthree;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tagfour;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teg.class)
-    private Teg tagfive;
+    public void setTegs(Set<Teg> tegs) {
+        this.tegs = tegs;
+    }
 
     @Override
     public Long getId() {
@@ -103,46 +106,6 @@ public class Link extends AbstractEntity {
 
     public void setUserAccount(final UserAccount userAccount) {
         this.userAccount = userAccount;
-    }
-
-    public Teg getTagone() {
-        return tagone;
-    }
-
-    public void setTagone(final Teg tagone) {
-        this.tagone = tagone;
-    }
-
-    public Teg getTagtwo() {
-        return tagtwo;
-    }
-
-    public void setTagtwo(final Teg tagtwo) {
-        this.tagtwo = tagtwo;
-    }
-
-    public Teg getTagthree() {
-        return tagthree;
-    }
-
-    public void setTagthree(final Teg tagthree) {
-        this.tagthree = tagthree;
-    }
-
-    public Teg getTagfour() {
-        return tagfour;
-    }
-
-    public void setTagfour(final Teg tagfour) {
-        this.tagfour = tagfour;
-    }
-
-    public Teg getTagfive() {
-        return tagfive;
-    }
-
-    public void setTagfive(final Teg tagfive) {
-        this.tagfive = tagfive;
     }
 
     @Override

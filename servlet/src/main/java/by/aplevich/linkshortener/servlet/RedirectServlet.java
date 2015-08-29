@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RedirectServlet extends HttpServlet {
 
     private static final int NUM_SYMBOLS_FOR_DELETE = 3;
-    private static final String PATH_TO_HOME = "http://127.0.0.1:8081/home";
+    private static final String PATH_TO_HOME = "http://127.0.0.1:8081/wicket/home";
     @Autowired
     private LinkService linkService;
 

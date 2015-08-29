@@ -1,6 +1,7 @@
 package by.aplevich.linkshortener.services.impl;
 
 import by.aplevich.linkshortener.dataaccess.TegDao;
+import by.aplevich.linkshortener.datamodel.Link;
 import by.aplevich.linkshortener.datamodel.Teg;
 import by.aplevich.linkshortener.services.TegService;
 import org.slf4j.Logger;
@@ -53,5 +54,10 @@ public class TegServiceImpl implements TegService {
     @Override
     public Teg getByName(final String name) {
         return dao.getByName(name);
+    }
+
+    @Override
+    public List<Link> getAllLinksByTag(Teg tag) {
+        return dao.getAllLinksByTag(tag);
     }
 }

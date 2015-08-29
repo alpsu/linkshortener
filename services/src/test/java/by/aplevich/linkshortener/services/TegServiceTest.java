@@ -59,6 +59,10 @@ public class TegServiceTest extends AbstractServiceTest{
         LOGGER.info("List of teg: {}", tegs);
     }
 
+    @Test
+    public void getAllLinksByTegTest() {
+        //TODO
+    }
 
     @Test
     public void uniqueConstraintsTest() {

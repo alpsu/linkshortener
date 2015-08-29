@@ -1,5 +1,6 @@
 package by.aplevich.linkshortener.services;
 
+import by.aplevich.linkshortener.datamodel.Link;
 import by.aplevich.linkshortener.datamodel.Teg;
 
 import javax.transaction.Transactional;
@@ -21,5 +22,5 @@ public interface TegService {
 
     List<Teg> getAllTegs();
 
-    //List<Place> getAllPlaces(SingularAttribute<Place, ?> attr, boolean ascending, int startRecord, int pageSize);
+    List<Link> getAllLinksByTag(Teg tag);
 }

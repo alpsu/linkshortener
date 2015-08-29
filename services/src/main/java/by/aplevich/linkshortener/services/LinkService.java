@@ -9,6 +9,8 @@ import java.util.List;
 public interface LinkService {
     Link get(Long id);
 
+    Link getById(Long id);
+
     @Transactional
     void saveOrUpdate(Link link);
 
@@ -26,10 +28,7 @@ public interface LinkService {
 
     int decode(String str);
 
-
     List<Link> getAllLinksByUser(Long userId, SingularAttribute<Link, ?> attr, boolean ascending, int startRecord, int pageSize);
-
-    List<Link> getAllLinksByTag(Long tagId);
 
     Long getCount(Long userId);
 }

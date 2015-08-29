@@ -23,7 +23,7 @@ public class LinkByTagPage extends BaseLayout {
 
     public LinkByTagPage(final String tagName) {
         tagTmp = tegService.getByName(tagName);
-        final List<Link> allLinksByTag = linkService.getAllLinksByTag(tagTmp.getId());
+        final List<Link> allLinksByTag = tegService.getAllLinksByTag(tagTmp);
         add(new ListView<Link>("listlinks", allLinksByTag) {
             @Override
             protected void populateItem(final ListItem<Link> item) {
