@@ -66,6 +66,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>linkshortener</finalName>
+        <finalName>ls</finalName>
     </build>
 </project>

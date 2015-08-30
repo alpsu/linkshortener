@@ -2,6 +2,8 @@ package by.aplevich.linkshortener.servlet;
 
 import by.aplevich.linkshortener.datamodel.Link;
 import by.aplevich.linkshortener.services.LinkService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -12,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RedirectServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedirectServlet.class);
 
-    private static final int NUM_SYMBOLS_FOR_DELETE = 3;
+    private static final int NUM_SYMBOLS_FOR_DELETE = 6;
     //private static final int NUM_SYMBOLS_FOR_DELETE = 1;
-    private static final String PATH_TO_HOME = "http://127.0.0.1:8081/wicket/home";
+    private static final String PATH_TO_HOME = "http://127.0.0.1:8080/ls/wicket/home";
     @Autowired
     private LinkService linkService;
 
@@ -28,6 +31,7 @@ public class RedirectServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
         String value = request.getRequestURI().substring(NUM_SYMBOLS_FOR_DELETE);
+        LOGGER.error("value is: {}", value);
         Link link = null;
         try {
             link = linkService.get(Long.valueOf(linkService.decode(value)));

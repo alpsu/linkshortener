@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Set;
 
 public class HomePage extends BaseLayout {
-    public static final String HTTP_NUMBER_URL = "http://127.0.0.1:8081/r/";
+    public static final String HTTP_NUMBER_URL = "http://127.0.0.1:8080/ls/r/";
     //public static final String HTTP_NUMBER_URL = "http://127.0.0.1:8081/";
-    public static final String HTTP_LOCAL_URL = "http://localhost:8081/r/";
+    public static final String HTTP_LOCAL_URL = "http://localhost:8080/ls/r/";
     //public static final String HTTP_LOCAL_URL = "http://localhost:8081/";
     private final TextArea<String> descr;
     private final TextArea<String> tag;

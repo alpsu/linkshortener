@@ -48,13 +48,5 @@ public class StatShort extends BaseLayout {
                 item.add(tegLink);
             }
         });
-//        Link<String> tagOneLink = new Link<String>("tagonelink") {
-//            @Override
-//            public void onClick() {
-//                setResponsePage(new LinkByTagPage(link.getTagone().getName()));
-//            }
-//        };
-//
-//        add(tagOneLink.add(new Label("tagonename", link.getTagone().getName())));
     }
 }

@@ -60,11 +60,6 @@ public class TegServiceTest extends AbstractServiceTest{
     }
 
     @Test
-    public void getAllLinksByTegTest() {
-        //TODO
-    }
-
-    @Test
     public void uniqueConstraintsTest() {
         LOGGER.info("Starting UniqueConstraintsTest for Teg");
         final Teg teg = createTeg();
