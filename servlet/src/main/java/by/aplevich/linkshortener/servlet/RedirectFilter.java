@@ -15,17 +15,13 @@ public class RedirectFilter implements Filter {
             throws java.io.IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        // Get the IP address of client machine.
         String value = req.getRequestURI();
         int num = value.lastIndexOf('/');
-        String tmp = value.substring(num);
-//        if (!tmp.contains(".")) {
-//            httpResponse.sendRedirect(path to ;
-//        }
-
-
-        // Pass request back down the filter chain
-        chain.doFilter(request, response);
+        String tmp = value.substring(++num);
+        if (!tmp.contains(".")) {
+            chain.doFilter(request, response);
+            return;
+        }
     }
 
     public void destroy() {

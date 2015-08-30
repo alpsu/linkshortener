@@ -22,6 +22,7 @@ public interface LinkService {
 
     List<Link> getAllLinksByUser(Long userId);
 
+    @Transactional
     Long getNextId();
 
     String encode(int num);

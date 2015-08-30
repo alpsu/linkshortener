@@ -26,14 +26,18 @@ import java.util.Set;
 
 public class HomePage extends BaseLayout {
     public static final String HTTP_NUMBER_URL = "http://127.0.0.1:8081/r/";
+    //public static final String HTTP_NUMBER_URL = "http://127.0.0.1:8081/";
     public static final String HTTP_LOCAL_URL = "http://localhost:8081/r/";
+    //public static final String HTTP_LOCAL_URL = "http://localhost:8081/";
     private final TextArea<String> descr;
-    private final TextField<String> longInput;
     private final TextArea<String> tag;
+    private final TextField<String> longInput;
+
     @Inject
     private LinkService linkService;
     @Inject
     private TegService tegService;
+
     private UserAccount user;
     private String tmp;
     private Long idNum;
@@ -41,6 +45,7 @@ public class HomePage extends BaseLayout {
     private String description;
     private String tags;
     private Set<Teg> tmpTegs;
+
     private boolean isUrlExist;
     private boolean isShortUrl;
     private boolean isEditing;
@@ -107,10 +112,13 @@ public class HomePage extends BaseLayout {
                                 }
 
                                 Link link = null;
-                                try {
-                                    link = linkService.getById(Long.valueOf(shortUrlid));
-                                } catch (Exception e) {
-                                    setResponsePage(HomePage.class, new PageParameters());
+                                // засунь в проверку isUrlExist
+                                if (!isUrlExist) {
+                                    try {
+                                        link = linkService.getById(Long.valueOf(shortUrlid));
+                                    } catch (Exception e) {
+                                        setResponsePage(HomePage.class, new PageParameters());
+                                    }
                                 }
 
                                 if (link != null) {
@@ -187,6 +195,7 @@ public class HomePage extends BaseLayout {
                     Teg teg = new Teg();
                     teg.setName(tmpStr);
                     tegService.saveOrUpdate(teg);
+                    tegs.add(teg);
                 }
             }
         }
